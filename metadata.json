@@ -1,0 +1,6 @@
+{
+  "name": "Love Proposal",
+  "description": "An interactive, customizable, and beautifully animated proposal card with playful button escape mechanics.",
+  "requestFramePermissions": [],
+  "majorCapabilities": ["MAJOR_CAPABILITY_SERVER_SIDE_GEMINI_API"]
+}
