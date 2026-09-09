@@ -111,7 +111,7 @@ export default function LoveCoupons({ config }: LoveCouponsProps) {
     const text = encodeURIComponent(
       `Hey Vansh! 💖 I am redeeming my Love Coupon:\n\n🎟️ "${coupon.title} ${coupon.emoji}"\n${coupon.description}\n\nYou owe me this right now! 😘🌸`
     );
-    return `https://wa.me/?text=${text}`;
+    return `https://wa.me/917982346690?text=${text}`;
   };
 
   return (

@@ -232,7 +232,7 @@ export default function ProposalCard({ config, onAcceptedChange }: ProposalCardP
           {/* Action buttons */}
           <div className="flex items-center gap-2.5 flex-wrap justify-center mt-2">
             <a
-              href={`https://wa.me/?text=${encodeURIComponent(`Vansh! I said YES to your proposal! You are officially mine forever 😘💍💖✨`)}`}
+              href={`https://wa.me/917982346690?text=${encodeURIComponent(`Vansh! I said YES to your proposal! You are officially mine forever 😘💍💖✨`)}`}
               target="_blank"
               rel="noopener noreferrer"
               className="px-5 py-2.5 bg-gradient-to-r from-emerald-500 to-teal-600 hover:from-emerald-600 hover:to-teal-700 text-white rounded-full text-xs font-bold shadow-md hover:scale-105 active:scale-95 transition-all flex items-center gap-1.5 cursor-pointer font-sans"
