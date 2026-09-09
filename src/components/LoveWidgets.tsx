@@ -273,12 +273,12 @@ export default function LoveWidgets({ config }: WidgetProps) {
                 {/* Bubble Outer Ring with gorgeous dynamic glows */}
                 <div
                   className={`relative flex items-center justify-center transition-all duration-300 rounded-full ${isMain
-                      ? "w-11 h-11 text-xl bg-gradient-to-tr from-pink-400 to-rose-400 text-white shadow-[0_0_15px_rgba(244,63,94,0.4)] border border-pink-200"
-                      : isSelected
-                        ? `w-9 h-9 text-lg bg-pink-100/50 border-rose-400 shadow-md scale-110`
-                        : isClicked
-                          ? "w-8 h-8 text-base bg-pink-50/50 border border-pink-300 shadow-xs"
-                          : "w-8 h-8 text-base bg-white/40 border border-white/60 shadow-xs"
+                    ? "w-11 h-11 text-xl bg-gradient-to-tr from-pink-400 to-rose-400 text-white shadow-[0_0_15px_rgba(244,63,94,0.4)] border border-pink-200"
+                    : isSelected
+                      ? `w-9 h-9 text-lg bg-pink-100/50 border-rose-400 shadow-md scale-110`
+                      : isClicked
+                        ? "w-8 h-8 text-base bg-pink-50/50 border border-pink-300 shadow-xs"
+                        : "w-8 h-8 text-base bg-white/40 border border-white/60 shadow-xs"
                     } flex items-center justify-center`}
                 >
                   <span>{item.icon}</span>
@@ -306,7 +306,7 @@ export default function LoveWidgets({ config }: WidgetProps) {
                 </div>
                 <h4 className="text-sm font-black text-rose-600 uppercase tracking-widest">My Heart is Full!</h4>
                 <p className="text-xs text-gray-500 mt-1 max-w-[200px] leading-relaxed">
-                  You discovered every piece of my heart. But the biggest, brightest spot is you, Akshu! 🌸💖
+                  You discovered every piece of my heart. But the biggest, brightest spot is you, Ridhima! 🌸💖
                 </p>
                 <button
                   onClick={() => {

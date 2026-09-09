@@ -43,7 +43,7 @@ export default function App() {
   // Update URL search parameters when configuration changes so the user can easily copy and share their custom URL!
   const handleConfigChange = (newConfig: ProposalConfig) => {
     setConfig(newConfig);
-    
+
     // Update URL dynamically without reloading
     const params = new URLSearchParams();
     if (newConfig.proposerName !== DEFAULT_CONFIG.proposerName) params.set("from", newConfig.proposerName);
@@ -167,7 +167,7 @@ export default function App() {
           <div className="flex items-center gap-1.5 bg-white/40 backdrop-blur-md px-3 py-1 rounded-full border border-white/50">
             <Sparkles className="w-3.5 h-3.5 text-amber-500" />
             <span className="text-[10px] sm:text-xs font-bold text-gray-700">
-              For: Akshu🌸
+              For: {config.partnerName || "Ridhima"} 🌸
             </span>
           </div>
         </div>
@@ -175,7 +175,7 @@ export default function App() {
 
       {/* 2. Main Hero Layout Grid */}
       <main className="w-full max-w-6xl mx-auto z-10 flex-grow flex flex-col items-center justify-center">
-        
+
         {/* Intro Sub-Hero Message */}
         <div className="text-center mb-8 max-w-2xl px-4">
           <motion.div
@@ -209,7 +209,7 @@ export default function App() {
 
         {/* 2-Column Responsive Layout */}
         <div className="w-full grid grid-cols-1 lg:grid-cols-12 gap-8 items-start px-4">
-          
+
           {/* Column A (Proposal Interactive Card) */}
           <div className="lg:col-span-7 flex justify-center w-full">
             <ProposalCard config={config} />
