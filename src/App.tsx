@@ -7,8 +7,8 @@ import { Heart, Sparkles, Star } from "lucide-react";
 import { motion } from "motion/react";
 
 const DEFAULT_CONFIG: ProposalConfig = {
-  proposerName: "nvn",
-  partnerName: "beautiful",
+  proposerName: "Vansh",
+  partnerName: "Ridhima",
   questionText: "Do you love me?",
   yesButtonText: "Yes",
   noButtonText: "No",

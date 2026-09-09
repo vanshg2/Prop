@@ -232,8 +232,10 @@ export default function ProposalCard({ config }: ProposalCardProps) {
 
     const currentNoStep = currentStep > 0 ? NO_STEPS[currentStep - 1] : null;
     const mood = (currentNoStep ? currentNoStep.gifType : "idle") as "idle" | "pout" | "cry" | "desperate";
-    const heading = currentNoStep ? currentNoStep.heading : `${config.questionText} 🤗`;
-    const subheading = currentNoStep ? currentNoStep.subheading : "Hey beautiful, I am all yours 💖🌹";
+    const heading = currentNoStep
+      ? (currentNoStep.id === 3 ? `${config.partnerName || "Ridhima"}, pls Man jao na! 😭` : currentNoStep.heading)
+      : `${config.questionText} 🤗`;
+    const subheading = currentNoStep ? currentNoStep.subheading : `Hey ${config.partnerName || "Ridhima"}, I am all yours 💖🌹`;
 
     return (
       <motion.div
