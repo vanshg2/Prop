@@ -4,6 +4,9 @@ import { Heart, Sparkles, RefreshCw, Trophy, Star } from "lucide-react";
 import confetti from "canvas-confetti";
 import { ProposalConfig } from "../types";
 import { romanticAudio } from "../utils/audio";
+import LoveCounter from "./LoveCounter";
+import OpenWhenEnvelopes from "./OpenWhenEnvelopes";
+import LoveCoupons from "./LoveCoupons";
 
 interface WidgetProps {
   config: ProposalConfig;
@@ -120,8 +123,17 @@ export default function LoveWidgets({ config }: WidgetProps) {
   }[config.themeColor || "rose"];
 
   return (
-    <div className="w-full flex flex-col gap-5 font-sans z-10">
-      {/* 1. LOVE-O-METER COMPATIBILITY CALCULATOR */}
+    <div className="w-full flex flex-col gap-6 font-sans z-10">
+      {/* 1. DAYS IN LOVE LIVE COUNTER */}
+      <LoveCounter config={config} />
+
+      {/* 2. ROMANTIC LOVE COUPONS (Kisses, Snacks, Massage, Drive, etc.) */}
+      <LoveCoupons config={config} />
+
+      {/* 3. "OPEN WHEN..." SECRET SEALED ENVELOPES */}
+      <OpenWhenEnvelopes config={config} />
+
+      {/* 4. LOVE-O-METER COMPATIBILITY CALCULATOR */}
       <motion.div
         id="love-meter-widget"
         initial={{ opacity: 0, y: 15 }}
@@ -180,9 +192,9 @@ export default function LoveWidgets({ config }: WidgetProps) {
           {/* Name Tags and Status Indicator */}
           <div className="flex-grow flex flex-col gap-1.5">
             <div className="flex items-center gap-1.5 flex-wrap">
-              <span className="font-bold text-gray-700 text-sm">You 💖</span>
+              <span className="font-bold text-gray-700 text-sm">{config.partnerName || "Ridhima"} 💖</span>
               <Heart className={`w-3 h-3 ${themeStyles.accent} fill-current animate-pulse`} />
-              <span className="font-bold text-gray-700 text-sm">I 💕</span>
+              <span className="font-bold text-gray-700 text-sm">{config.proposerName || "Vansh"} 💕</span>
             </div>
 
             <p className="text-xs text-gray-500 leading-relaxed min-h-[36px]">
@@ -192,8 +204,8 @@ export default function LoveWidgets({ config }: WidgetProps) {
                 </span>
               ) : (
                 <>
-                  The stars declare that <span className="font-semibold text-gray-700">You 💖</span> &{" "}
-                  <span className="font-semibold text-gray-700">I 💕</span> are a celestial masterpiece! 💫
+                  The stars declare that <span className="font-semibold text-gray-700">{config.partnerName || "Ridhima"} 💖</span> &{" "}
+                  <span className="font-semibold text-gray-700">{config.proposerName || "Vansh"} 💕</span> are a celestial masterpiece! 💫
                 </>
               )}
             </p>
@@ -201,7 +213,7 @@ export default function LoveWidgets({ config }: WidgetProps) {
         </div>
       </motion.div>
 
-      {/* 2. THE THINGS I LOVE - INTERACTIVE HEART GRID */}
+      {/* 5. THE THINGS I LOVE - INTERACTIVE HEART GRID */}
       <motion.div
         id="things-i-love-widget"
         initial={{ opacity: 0, y: 15 }}
@@ -309,7 +321,7 @@ export default function LoveWidgets({ config }: WidgetProps) {
                 </div>
                 <h4 className="text-sm font-black text-rose-600 uppercase tracking-widest">My Heart is Full!</h4>
                 <p className="text-xs text-gray-500 mt-1 max-w-[200px] leading-relaxed">
-                  You discovered every piece of my heart. But the biggest, brightest spot is you, Ridhima! 🌸💖
+                  You discovered every piece of my heart. But the biggest, brightest spot is you, {config.partnerName || "Ridhima"}! 🌸💖
                 </p>
                 <button
                   onClick={() => {

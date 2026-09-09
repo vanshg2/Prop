@@ -3,8 +3,9 @@ import { ProposalConfig } from "./types";
 import FloatingHearts from "./components/FloatingHearts";
 import ProposalCard from "./components/ProposalCard";
 import LoveWidgets from "./components/LoveWidgets";
-import { Heart, Sparkles, Star, Volume2, VolumeX } from "lucide-react";
-import { motion } from "motion/react";
+import LockScreen from "./components/LockScreen";
+import { Heart, Sparkles, Star, Volume2, VolumeX, Lock } from "lucide-react";
+import { motion, AnimatePresence } from "motion/react";
 import { romanticAudio } from "./utils/audio";
 
 const DEFAULT_CONFIG: ProposalConfig = {
@@ -20,6 +21,7 @@ export default function App() {
   const [config, setConfig] = useState<ProposalConfig>(DEFAULT_CONFIG);
   const [isMuted, setIsMuted] = useState(false);
   const [isAccepted, setIsAccepted] = useState(false);
+  const [isLocked, setIsLocked] = useState(true);
 
   // Load custom configuration from URL parameters on start (makes it super easy to share personalized links!)
   useEffect(() => {
@@ -168,6 +170,19 @@ export default function App() {
           </div>
 
           <div className="flex items-center gap-2">
+            {/* Relock Button */}
+            <button
+              onClick={() => {
+                setIsLocked(true);
+                romanticAudio.playEscape();
+              }}
+              className="flex items-center gap-1 bg-white/40 hover:bg-white/70 backdrop-blur-md px-2.5 py-1 rounded-full border border-white/50 text-gray-700 text-[11px] font-bold transition-all cursor-pointer shadow-2xs"
+              title="Lock sanctuary"
+            >
+              <Lock className="w-3.5 h-3.5 text-rose-500" />
+              <span className="hidden sm:inline text-[10px]">Vault</span>
+            </button>
+
             <button
               onClick={() => {
                 const muted = romanticAudio.toggleMute();
@@ -194,6 +209,16 @@ export default function App() {
           </div>
         </div>
       </header>
+
+      {/* Password Vault Lock Screen (DOB: 120306) */}
+      <AnimatePresence>
+        {isLocked && (
+          <LockScreen
+            onUnlock={() => setIsLocked(false)}
+            partnerName={config.partnerName}
+          />
+        )}
+      </AnimatePresence>
 
       {/* 2. Main Hero Layout Grid */}
       <main className={`w-full ${isAccepted ? "max-w-5xl" : "max-w-6xl"} mx-auto z-10 flex-grow flex flex-col items-center justify-center transition-all duration-500`}>
