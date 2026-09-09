@@ -7,6 +7,7 @@ import { romanticAudio } from "../utils/audio";
 import LoveCounter from "./LoveCounter";
 import OpenWhenEnvelopes from "./OpenWhenEnvelopes";
 import LoveCoupons from "./LoveCoupons";
+import RomanticLoveLetter from "./RomanticLoveLetter";
 
 interface WidgetProps {
   config: ProposalConfig;
@@ -373,6 +374,9 @@ export default function LoveWidgets({ config }: WidgetProps) {
           </AnimatePresence>
         </div>
       </motion.div>
+
+      {/* 6. GRAND FINALE: HANDWRITTEN LOVE LETTER (At the very bottom with unseal gate) */}
+      <RomanticLoveLetter config={config} />
     </div>
   );
 }

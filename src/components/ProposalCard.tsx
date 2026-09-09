@@ -4,7 +4,6 @@ import { Heart, Sparkles, AlertCircle, Stars } from "lucide-react";
 import confetti from "canvas-confetti";
 import { ProposalConfig, NoStep } from "../types";
 import InteractiveCuteCharacter from "./InteractiveCuteCharacter";
-import RomanticLoveLetter from "./RomanticLoveLetter";
 import { romanticAudio } from "../utils/audio";
 
 interface ProposalCardProps {
@@ -220,12 +219,9 @@ export default function ProposalCard({ config, onAcceptedChange }: ProposalCardP
               I love you Soooooo sooo Muccchhhhhh my Baby Doll / My mommy / Baby 🌸👸💕
             </p>
             <p className="text-xs font-medium text-gray-500 italic max-w-md px-4 leading-relaxed">
-              Happiest moment ever. Let's make endless beautiful memories together! ✨
+              Happiest moment ever. Explore all your treats, secret letters, and private confession below! ✨
             </p>
           </div>
-
-          {/* Flirty & Intimate Custom Love Letter */}
-          <RomanticLoveLetter config={config} />
 
           <motion.button
             id="accepted-reset-btn"
@@ -233,7 +229,7 @@ export default function ProposalCard({ config, onAcceptedChange }: ProposalCardP
             initial={{ opacity: 0 }}
             animate={{ opacity: 1 }}
             transition={{ delay: 0.8 }}
-            className={`mt-3 px-6 py-2.5 rounded-full text-xs font-bold ${themeStyles.buttonNo} hover:scale-105 active:scale-95 transition-all border cursor-pointer flex items-center gap-1.5`}
+            className={`mt-2 px-6 py-2.5 rounded-full text-xs font-bold ${themeStyles.buttonNo} hover:scale-105 active:scale-95 transition-all border cursor-pointer flex items-center gap-1.5`}
           >
             <span>Ask Again? 😉</span>
           </motion.button>
