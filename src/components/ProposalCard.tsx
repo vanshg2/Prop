@@ -1,6 +1,6 @@
 import { useState, useRef } from "react";
 import { motion, AnimatePresence } from "motion/react";
-import { Heart, Sparkles, AlertCircle, Stars } from "lucide-react";
+import { Heart, Sparkles, AlertCircle, Stars, Send } from "lucide-react";
 import confetti from "canvas-confetti";
 import { ProposalConfig, NoStep } from "../types";
 import InteractiveCuteCharacter from "./InteractiveCuteCharacter";
@@ -204,35 +204,61 @@ export default function ProposalCard({ config, onAcceptedChange }: ProposalCardP
           exit={{ opacity: 0 }}
           className="text-center py-4 flex flex-col items-center gap-4 w-full"
         >
+          {/* Celebratory badge */}
+          <div className="inline-flex items-center gap-1.5 px-3.5 py-1 rounded-full bg-gradient-to-r from-rose-100 via-pink-100 to-rose-100 text-rose-700 font-bold text-[11px] uppercase tracking-wider border border-rose-300/80 shadow-2xs">
+            <Sparkles className="w-3.5 h-3.5 text-amber-500 animate-spin-slow" />
+            <span>Officially Mine Forever • 29 Aug 2026 💍✨</span>
+          </div>
+
           <InteractiveCuteCharacter mood="success" />
 
-          <div className="flex flex-col gap-2">
+          <div className="flex flex-col items-center gap-1.5 px-2">
             <motion.h1
               initial={{ scale: 0.8, y: 10 }}
               animate={{ scale: 1, y: 0 }}
               transition={{ delay: 0.2, type: "spring", stiffness: 120, damping: 10 }}
-              className={`text-3xl sm:text-4xl font-extrabold tracking-tight ${themeStyles.accent} font-serif`}
+              className="text-4xl sm:text-5xl font-black tracking-tight bg-gradient-to-r from-rose-600 via-pink-600 to-rose-700 bg-clip-text text-transparent font-serif leading-none"
             >
               I knew it! 😘💖
             </motion.h1>
-            <p className="text-base sm:text-lg font-bold text-gray-800 tracking-wide px-4">
-              I love you Soooooo sooo Muccchhhhhh my Baby Doll / My mommy / Baby 🌸👸💕
+            <p className="font-cursive text-2xl sm:text-3xl font-bold text-[#881337] tracking-wide px-2 leading-snug mt-1">
+              I love you sooo sooo much, my baby doll! 🌸👸💕
             </p>
-            <p className="text-xs font-medium text-gray-500 italic max-w-md px-4 leading-relaxed">
-              Happiest moment ever. Explore all your treats, secret letters, and private confession below! ✨
+            <p className="text-xs sm:text-sm font-medium text-gray-600 max-w-md px-4 leading-relaxed font-sans">
+              You just made me the happiest boy in the entire universe. Explore all your love treats, secret letters, and private confession below! ✨
             </p>
           </div>
 
-          <motion.button
-            id="accepted-reset-btn"
-            onClick={resetAll}
-            initial={{ opacity: 0 }}
-            animate={{ opacity: 1 }}
-            transition={{ delay: 0.8 }}
-            className={`mt-2 px-6 py-2.5 rounded-full text-xs font-bold ${themeStyles.buttonNo} hover:scale-105 active:scale-95 transition-all border cursor-pointer flex items-center gap-1.5`}
+          {/* Action buttons */}
+          <div className="flex items-center gap-2.5 flex-wrap justify-center mt-2">
+            <a
+              href={`https://wa.me/?text=${encodeURIComponent(`Vansh! I said YES to your proposal! You are officially mine forever 😘💍💖✨`)}`}
+              target="_blank"
+              rel="noopener noreferrer"
+              className="px-5 py-2.5 bg-gradient-to-r from-emerald-500 to-teal-600 hover:from-emerald-600 hover:to-teal-700 text-white rounded-full text-xs font-bold shadow-md hover:scale-105 active:scale-95 transition-all flex items-center gap-1.5 cursor-pointer font-sans"
+            >
+              <Send className="w-3.5 h-3.5" />
+              <span>Send "I Said YES" on WA 📲</span>
+            </a>
+
+            <button
+              id="accepted-reset-btn"
+              onClick={resetAll}
+              className={`px-4 py-2.5 rounded-full text-xs font-bold ${themeStyles.buttonNo} hover:scale-105 active:scale-95 transition-all border cursor-pointer flex items-center gap-1.5 font-sans`}
+            >
+              <span>Ask Again? 😉</span>
+            </button>
+          </div>
+
+          {/* Animated Scroll Down Indicator */}
+          <motion.div
+            animate={{ y: [0, 5, 0] }}
+            transition={{ duration: 1.5, repeat: Infinity, ease: "easeInOut" }}
+            className="flex items-center gap-1 text-rose-500 font-bold text-[11px] mt-2 font-sans opacity-90"
           >
-            <span>Ask Again? 😉</span>
-          </motion.button>
+            <span>Scroll down for your love treats & secret letter</span>
+            <span>↓</span>
+          </motion.div>
         </motion.div>
       );
     }
@@ -311,7 +337,7 @@ export default function ProposalCard({ config, onAcceptedChange }: ProposalCardP
     <div
       ref={containerRef}
       id="proposal-card-parent"
-      className={`relative w-full ${isAccepted ? "max-w-5xl" : "max-w-md"} ${themeStyles.glass} rounded-3xl p-4 sm:p-7 lg:p-9 shadow-xl border overflow-hidden transition-all duration-500 z-10`}
+      className={`relative w-full ${isAccepted ? "max-w-xl" : "max-w-md"} ${themeStyles.glass} rounded-3xl p-6 sm:p-8 shadow-xl border overflow-hidden transition-all duration-500 z-10`}
     >
       {/* Absolute floating decorations inside the card */}
       <div className="absolute top-0 right-0 w-16 h-16 bg-gradient-to-br from-rose-400/10 to-transparent rounded-full pointer-events-none" />
