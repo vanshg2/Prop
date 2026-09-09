@@ -1,6 +1,6 @@
 import { useState, useEffect, useRef, ChangeEvent } from "react";
 import { motion, AnimatePresence } from "motion/react";
-import { Lock, Unlock, Heart, KeyRound, Sparkles, Cake, ShieldAlert } from "lucide-react";
+import { Lock, Unlock, Heart, KeyRound, Sparkles, Calendar, ShieldAlert } from "lucide-react";
 import confetti from "canvas-confetti";
 import { romanticAudio } from "../utils/audio";
 
@@ -16,8 +16,8 @@ export default function LockScreen({ onUnlock, partnerName = "Ridhima" }: LockSc
   const [isUnlocked, setIsUnlocked] = useState(false);
   const inputRef = useRef<HTMLInputElement>(null);
 
-  // Accepted variants of 12-03-2006 (DDMMYY: 120306, DDMMYYYY: 12032006)
-  const VALID_PINS = ["120306", "12032006"];
+  // Accepted variants of 29-08-2026 (DDMM: 2908, DDMMYY: 290826, DDMMYYYY: 29082026)
+  const VALID_PINS = ["2908", "290826", "29082026"];
 
   useEffect(() => {
     inputRef.current?.focus();
@@ -27,10 +27,10 @@ export default function LockScreen({ onUnlock, partnerName = "Ridhima" }: LockSc
     if (pin.length < 8) {
       const nextPin = pin + num;
       setPin(nextPin);
-      romanticAudio.playChime(523.25 + nextPin.length * 30);
+      romanticAudio.playChime(523.25 + nextPin.length * 40);
       setError(false);
 
-      if (nextPin.length === 6) {
+      if (nextPin.length === 4) {
         checkPin(nextPin);
       }
     }
@@ -69,7 +69,7 @@ export default function LockScreen({ onUnlock, partnerName = "Ridhima" }: LockSc
     const val = e.target.value.replace(/\D/g, "").slice(0, 8);
     setPin(val);
     setError(false);
-    if (val.length === 6) {
+    if (val.length === 4) {
       checkPin(val);
     }
   };
@@ -110,10 +110,10 @@ export default function LockScreen({ onUnlock, partnerName = "Ridhima" }: LockSc
           Reserved exclusively for <span className="font-bold text-pink-300">{partnerName}</span> 🌸
         </p>
 
-        {/* Secret Birthday Hint */}
+        {/* Secret First Met Date Hint */}
         <div className="inline-flex items-center gap-1.5 px-3 py-1 bg-white/10 rounded-full border border-white/20 text-[11px] text-pink-200 mb-6 shadow-2xs">
-          <Cake className="w-3.5 h-3.5 text-amber-300" />
-          <span>Enter your birthday (DDMMYY) 🎂🔑</span>
+          <Calendar className="w-3.5 h-3.5 text-amber-300" />
+          <span>The day we first met / started dating (DDMM) 🗓️🔑</span>
         </div>
 
         {/* Hidden physical input for keyboard support */}
@@ -129,18 +129,18 @@ export default function LockScreen({ onUnlock, partnerName = "Ridhima" }: LockSc
           autoFocus
         />
 
-        {/* PIN Dot Indicators */}
+        {/* PIN Dot Indicators (4 Digits: 2908) */}
         <div
           onClick={() => inputRef.current?.focus()}
-          className="flex justify-center gap-3.5 mb-6 cursor-pointer"
+          className="flex justify-center gap-4 mb-6 cursor-pointer"
         >
-          {Array.from({ length: 6 }).map((_, i) => {
+          {Array.from({ length: 4 }).map((_, i) => {
             const isFilled = i < pin.length;
             return (
               <motion.div
                 key={i}
                 animate={{
-                  scale: isFilled ? 1.15 : 1,
+                  scale: isFilled ? 1.2 : 1,
                   borderColor: error ? "rgb(244 63 94)" : isFilled ? "rgb(251 113 133)" : "rgba(255,255,255,0.25)",
                 }}
                 className={`w-4 h-4 rounded-full border-2 transition-all duration-200 flex items-center justify-center ${
@@ -166,7 +166,7 @@ export default function LockScreen({ onUnlock, partnerName = "Ridhima" }: LockSc
                 className="text-xs font-bold text-rose-300 flex items-center justify-center gap-1"
               >
                 <ShieldAlert className="w-3.5 h-3.5" />
-                <span>Oops! Hint: 12-03-2006 💕</span>
+                <span>Oops! Hint: The day we first met (29-08) 💕</span>
               </motion.p>
             )}
           </AnimatePresence>
@@ -211,7 +211,7 @@ export default function LockScreen({ onUnlock, partnerName = "Ridhima" }: LockSc
         </div>
 
         {/* Unlock Button fallback */}
-        {pin.length >= 6 && (
+        {pin.length >= 4 && (
           <motion.button
             initial={{ opacity: 0, y: 10 }}
             animate={{ opacity: 1, y: 0 }}
