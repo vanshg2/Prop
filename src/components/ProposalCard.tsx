@@ -9,6 +9,7 @@ import { romanticAudio } from "../utils/audio";
 
 interface ProposalCardProps {
   config: ProposalConfig;
+  onAcceptedChange?: (isAccepted: boolean) => void;
 }
 
 const NO_STEPS: NoStep[] = [
@@ -35,7 +36,7 @@ const NO_STEPS: NoStep[] = [
   },
 ];
 
-export default function ProposalCard({ config }: ProposalCardProps) {
+export default function ProposalCard({ config, onAcceptedChange }: ProposalCardProps) {
   const [currentStep, setCurrentStep] = useState(0); // 0: Start, 1: No1, 2: No2, 3: No3 (Teleport)
   const [isAccepted, setIsAccepted] = useState(false);
   const [noPosition, setNoPosition] = useState<{ x: number; y: number } | null>(null);
@@ -81,6 +82,7 @@ export default function ProposalCard({ config }: ProposalCardProps) {
 
   const handleYes = () => {
     setIsAccepted(true);
+    onAcceptedChange?.(true);
     romanticAudio.playCelebration();
 
     // Multi-burst premium themed confetti celebration for 5 seconds
@@ -143,6 +145,7 @@ export default function ProposalCard({ config }: ProposalCardProps) {
   const resetAll = () => {
     setCurrentStep(0);
     setIsAccepted(false);
+    onAcceptedChange?.(false);
     setNoPosition(null);
     setTeleportCount(0);
   };
@@ -312,7 +315,7 @@ export default function ProposalCard({ config }: ProposalCardProps) {
     <div
       ref={containerRef}
       id="proposal-card-parent"
-      className={`relative w-full ${isAccepted ? "max-w-2xl" : "max-w-md"} ${themeStyles.glass} rounded-3xl p-5 sm:p-8 shadow-xl border overflow-hidden transition-all duration-500 z-10`}
+      className={`relative w-full ${isAccepted ? "max-w-5xl" : "max-w-md"} ${themeStyles.glass} rounded-3xl p-4 sm:p-7 lg:p-9 shadow-xl border overflow-hidden transition-all duration-500 z-10`}
     >
       {/* Absolute floating decorations inside the card */}
       <div className="absolute top-0 right-0 w-16 h-16 bg-gradient-to-br from-rose-400/10 to-transparent rounded-full pointer-events-none" />

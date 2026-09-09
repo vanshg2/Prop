@@ -19,6 +19,7 @@ const DEFAULT_CONFIG: ProposalConfig = {
 export default function App() {
   const [config, setConfig] = useState<ProposalConfig>(DEFAULT_CONFIG);
   const [isMuted, setIsMuted] = useState(false);
+  const [isAccepted, setIsAccepted] = useState(false);
 
   // Load custom configuration from URL parameters on start (makes it super easy to share personalized links!)
   useEffect(() => {
@@ -195,53 +196,67 @@ export default function App() {
       </header>
 
       {/* 2. Main Hero Layout Grid */}
-      <main className="w-full max-w-6xl mx-auto z-10 flex-grow flex flex-col items-center justify-center">
+      <main className={`w-full ${isAccepted ? "max-w-5xl" : "max-w-6xl"} mx-auto z-10 flex-grow flex flex-col items-center justify-center transition-all duration-500`}>
 
-        {/* Intro Sub-Hero Message */}
-        <div className="text-center mb-8 max-w-2xl px-4">
-          <motion.div
-            initial={{ opacity: 0, scale: 0.95 }}
-            animate={{ opacity: 1, scale: 1 }}
-            transition={{ duration: 0.6 }}
-            className="inline-flex items-center gap-1 bg-white/40 backdrop-blur-md px-3 py-1 rounded-full text-[10px] sm:text-xs font-bold text-gray-600 uppercase tracking-widest mb-3 shadow-xs border border-white/50"
-          >
-            <Star className="w-3 h-3 text-amber-400 fill-amber-400" />
-            Celestial Proposal Invitation
-          </motion.div>
+        {/* Intro Sub-Hero Message - hide or minimize when accepted to give full focus to the letter */}
+        {!isAccepted && (
+          <div className="text-center mb-8 max-w-2xl px-4">
+            <motion.div
+              initial={{ opacity: 0, scale: 0.95 }}
+              animate={{ opacity: 1, scale: 1 }}
+              transition={{ duration: 0.6 }}
+              className="inline-flex items-center gap-1 bg-white/40 backdrop-blur-md px-3 py-1 rounded-full text-[10px] sm:text-xs font-bold text-gray-600 uppercase tracking-widest mb-3 shadow-xs border border-white/50"
+            >
+              <Star className="w-3 h-3 text-amber-400 fill-amber-400" />
+              Celestial Proposal Invitation
+            </motion.div>
 
-          <motion.h2
-            initial={{ opacity: 0, y: 10 }}
-            animate={{ opacity: 1, y: 0 }}
-            transition={{ duration: 0.6, delay: 0.1 }}
-            className="text-3xl sm:text-5xl font-black tracking-tight text-gray-800 font-serif leading-tight sm:leading-none"
-          >
-            A Message <span className={themeTextColors}>Written</span> in the Stars
-          </motion.h2>
+            <motion.h2
+              initial={{ opacity: 0, y: 10 }}
+              animate={{ opacity: 1, y: 0 }}
+              transition={{ duration: 0.6, delay: 0.1 }}
+              className="text-3xl sm:text-5xl font-black tracking-tight text-gray-800 font-serif leading-tight sm:leading-none"
+            >
+              A Message <span className={themeTextColors}>Written</span> in the Stars
+            </motion.h2>
 
-          <motion.p
-            initial={{ opacity: 0, y: 10 }}
-            animate={{ opacity: 1, y: 0 }}
-            transition={{ duration: 0.6, delay: 0.2 }}
-            className="text-xs sm:text-sm text-gray-500 font-medium mt-3 leading-relaxed"
-          >
-            An interactive romantic experience designed especially for you. Answer honestly, feel the rhythm of our hearts, and personalize this dream for your beloved.
-          </motion.p>
-        </div>
-
-        {/* 2-Column Responsive Layout */}
-        <div className="w-full grid grid-cols-1 lg:grid-cols-12 gap-8 items-start px-4">
-
-          {/* Column A (Proposal Interactive Card) */}
-          <div className="lg:col-span-7 flex justify-center w-full">
-            <ProposalCard config={config} />
+            <motion.p
+              initial={{ opacity: 0, y: 10 }}
+              animate={{ opacity: 1, y: 0 }}
+              transition={{ duration: 0.6, delay: 0.2 }}
+              className="text-xs sm:text-sm text-gray-500 font-medium mt-3 leading-relaxed"
+            >
+              An interactive romantic experience designed especially for you. Answer honestly, feel the rhythm of our hearts, and personalize this dream for your beloved.
+            </motion.p>
           </div>
+        )}
 
-          {/* Column B (Secondary Love Interactive Widgets) */}
-          <div className="lg:col-span-5 w-full">
-            <LoveWidgets config={config} />
+        {/* Dynamic Responsive Layout */}
+        {isAccepted ? (
+          <div className="w-full flex flex-col items-center gap-10 px-2 sm:px-4">
+            {/* Full-width Proposal Card with handwritten letter using the entire screen */}
+            <div className="w-full flex justify-center">
+              <ProposalCard config={config} onAcceptedChange={setIsAccepted} />
+            </div>
+
+            {/* Widgets Section seamlessly presented beneath the love letter */}
+            <div className="w-full max-w-5xl">
+              <LoveWidgets config={config} />
+            </div>
           </div>
+        ) : (
+          <div className="w-full grid grid-cols-1 lg:grid-cols-12 gap-8 items-start px-4">
+            {/* Column A (Proposal Interactive Card) */}
+            <div className="lg:col-span-7 flex justify-center w-full">
+              <ProposalCard config={config} onAcceptedChange={setIsAccepted} />
+            </div>
 
-        </div>
+            {/* Column B (Secondary Love Interactive Widgets) */}
+            <div className="lg:col-span-5 w-full">
+              <LoveWidgets config={config} />
+            </div>
+          </div>
+        )}
 
       </main>
     </div>
