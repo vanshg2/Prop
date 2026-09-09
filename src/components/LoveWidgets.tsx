@@ -14,19 +14,19 @@ const LOVE_ITEMS = [
   { id: "music", label: "Beautiful Melodies", icon: "🎵", x: 16, y: 24, text: "Every love song suddenly makes perfect sense." },
   { id: "books", label: "Cozy Books", icon: "📚", x: 72, y: 15, text: "My favorite story is the one we write together." },
   { id: "sunset", label: "Magical Sunsets", icon: "🌅", x: 84, y: 24, text: "Painting the sky in shades of my love for you." },
-  
+
   { id: "cats", label: "Fluffy Kittens", icon: "🐱", x: 10, y: 39, text: "Soft, warm, and cute—just like your sweet hugs!" },
   { id: "travel", label: "Endless Travel", icon: "✈️", x: 30, y: 39, text: "I'd travel across the universe just to see you." },
   { id: "stars", label: "Stargazing", icon: "🌟", x: 70, y: 39, text: "Looking for the brightest star, but none shines like you." },
   { id: "rain", label: "Rainy Days", icon: "🌧️", x: 90, y: 39, text: "The perfect excuse to hold you close and listen to the rain." },
-  
+
   { id: "flowers", label: "Fresh Flowers", icon: "🌸", x: 16, y: 58, text: "Blooming with endless joy whenever you smile." },
-  { id: "you", label: "YOU (Akshu)", icon: "💖", x: 50, y: 48, text: "The center of my universe. The one I love more than everything else combined! 🌸✨", isMain: true },
+  { id: "you", label: "YOU (Ridhima)", icon: "💖", x: 50, y: 48, text: "The center of my universe. The one I love more than everything else combined! 🌸✨", isMain: true },
   { id: "chocolate", label: "Chocolates", icon: "🍫", x: 84, y: 58, text: "Sweet, but not even half as sweet as you are!" },
-  
+
   { id: "pizza", label: "Pizza Nights", icon: "🍕", x: 32, y: 74, text: "A warm slice of happiness, but you are the whole pie!" },
   { id: "gaming", label: "Co-op Gaming", icon: "🎮", x: 68, y: 74, text: "Player 1 ❤️ Player 2. You're my favorite teammate forever." },
-  
+
   { id: "home", label: "Warm Home", icon: "🏡", x: 50, y: 88, text: "Home isn't a place, it's a feeling... and my home is with you." }
 ];
 
@@ -181,7 +181,7 @@ export default function LoveWidgets({ config }: WidgetProps) {
               <Heart className={`w-3 h-3 ${themeStyles.accent} fill-current animate-pulse`} />
               <span className="font-bold text-gray-700 text-sm">I 💕</span>
             </div>
-            
+
             <p className="text-xs text-gray-500 leading-relaxed min-h-[36px]">
               {isCalculating ? (
                 <span className="flex items-center gap-1 italic text-gray-400">
@@ -225,7 +225,7 @@ export default function LoveWidgets({ config }: WidgetProps) {
 
         {/* Dynamic Heart Map Area */}
         <div className="relative w-full h-[320px] bg-white/5 border border-white/10 rounded-2xl overflow-hidden shadow-inner flex items-center justify-center p-4">
-          
+
           {/* Subtle SVG Background Heart Path representing Timo's style */}
           <svg className="absolute w-full h-full inset-0 pointer-events-none p-2" viewBox="0 0 100 100" preserveAspectRatio="none">
             <motion.path
@@ -272,15 +272,14 @@ export default function LoveWidgets({ config }: WidgetProps) {
               >
                 {/* Bubble Outer Ring with gorgeous dynamic glows */}
                 <div
-                  className={`relative flex items-center justify-center transition-all duration-300 rounded-full ${
-                    isMain
+                  className={`relative flex items-center justify-center transition-all duration-300 rounded-full ${isMain
                       ? "w-11 h-11 text-xl bg-gradient-to-tr from-pink-400 to-rose-400 text-white shadow-[0_0_15px_rgba(244,63,94,0.4)] border border-pink-200"
                       : isSelected
-                      ? `w-9 h-9 text-lg bg-pink-100/50 border-rose-400 shadow-md scale-110`
-                      : isClicked
-                      ? "w-8 h-8 text-base bg-pink-50/50 border border-pink-300 shadow-xs"
-                      : "w-8 h-8 text-base bg-white/40 border border-white/60 shadow-xs"
-                  } flex items-center justify-center`}
+                        ? `w-9 h-9 text-lg bg-pink-100/50 border-rose-400 shadow-md scale-110`
+                        : isClicked
+                          ? "w-8 h-8 text-base bg-pink-50/50 border border-pink-300 shadow-xs"
+                          : "w-8 h-8 text-base bg-white/40 border border-white/60 shadow-xs"
+                    } flex items-center justify-center`}
                 >
                   <span>{item.icon}</span>
 
