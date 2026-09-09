@@ -1,17 +1,50 @@
-@import url('https://fonts.googleapis.com/css2?family=Inter:wght@300;400;500;600;700&family=Playfair+Display:ital,wght@0,400..900;1,400..900&display=swap');
+@import url('https://fonts.googleapis.com/css2?family=Alex+Brush&family=Caveat:wght@400;600;700&family=Dancing+Script:wght@500;700&family=Inter:wght@300;400;500;600;700&family=Patrick+Hand&family=Playfair+Display:ital,wght@0,400..900;1,400..900&display=swap');
 @import "tailwindcss";
 
 @theme {
   --font-sans: "Inter", ui-sans-serif, system-ui, sans-serif;
   --font-serif: "Playfair Display", ui-serif, Georgia, serif;
+  --font-hand: "Caveat", "Dancing Script", cursive;
+  --font-cursive: "Dancing Script", cursive;
+  --font-brush: "Alex Brush", cursive;
 }
 
 @layer utilities {
+  .font-handwriting {
+    font-family: "Caveat", "Patrick Hand", cursive;
+  }
+  .font-cursive {
+    font-family: "Dancing Script", cursive;
+  }
+  .font-brush {
+    font-family: "Alex Brush", cursive;
+  }
+  .paper-lines {
+    background-image: repeating-linear-gradient(
+      transparent,
+      transparent 31px,
+      rgba(244, 114, 182, 0.15) 31px,
+      rgba(244, 114, 182, 0.15) 32px
+    );
+    line-height: 32px;
+  }
   .animate-spin-slow {
     animation: spin 8s linear infinite;
   }
+  .animate-float-slow {
+    animation: floatSlow 4s ease-in-out infinite;
+  }
   .animate-fade-in-up {
-    animation: fadeInUp 0.3s cubic-bezier(0.16, 1, 0.3, 1) forwards;
+    animation: fadeInUp 0.4s cubic-bezier(0.16, 1, 0.3, 1) forwards;
+  }
+}
+
+@keyframes floatSlow {
+  0%, 100% {
+    transform: translateY(0px) rotate(0deg);
+  }
+  50% {
+    transform: translateY(-8px) rotate(2deg);
   }
 }
 

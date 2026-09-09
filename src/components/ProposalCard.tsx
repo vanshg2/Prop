@@ -4,6 +4,7 @@ import { Heart, Sparkles, AlertCircle } from "lucide-react";
 import confetti from "canvas-confetti";
 import { ProposalConfig, NoStep } from "../types";
 import InteractiveCuteCharacter from "./InteractiveCuteCharacter";
+import RomanticLoveLetter from "./RomanticLoveLetter";
 
 interface ProposalCardProps {
   config: ProposalConfig;
@@ -38,7 +39,7 @@ export default function ProposalCard({ config }: ProposalCardProps) {
   const [isAccepted, setIsAccepted] = useState(false);
   const [noPosition, setNoPosition] = useState<{ x: number; y: number } | null>(null);
   const [teleportCount, setTeleportCount] = useState(0);
-  
+
   const containerRef = useRef<HTMLDivElement>(null);
 
   // Growth scale multiplier for YES button based on "No" clicks
@@ -60,10 +61,10 @@ export default function ProposalCard({ config }: ProposalCardProps) {
       // Keep inside container boundaries with padding
       const maxW = (rect.width / 2) - 60;
       const maxH = (rect.height / 2) - 40;
-      
+
       const randomX = (Math.random() * 2 - 1) * maxW;
       const randomY = (Math.random() * 2 - 1) * maxH;
-      
+
       setNoPosition({ x: randomX, y: randomY });
       setTeleportCount((prev) => prev + 1);
     } else {
@@ -88,13 +89,13 @@ export default function ProposalCard({ config }: ProposalCardProps) {
     };
 
     // Immediate initial explosion
-    const initialColors = config.themeColor === "rose" 
+    const initialColors = config.themeColor === "rose"
       ? ["#f43f5e", "#ec4899", "#fda4af", "#ff007f", "#ffffff"]
       : config.themeColor === "lavender"
-      ? ["#a855f7", "#8b5cf6", "#c084fc", "#ffffff", "#e9d5ff"]
-      : config.themeColor === "emerald"
-      ? ["#10b981", "#14b8a6", "#34d399", "#ffffff", "#ccfbf1"]
-      : ["#f59e0b", "#f97316", "#fbbf24", "#ffffff", "#fef3c7"];
+        ? ["#a855f7", "#8b5cf6", "#c084fc", "#ffffff", "#e9d5ff"]
+        : config.themeColor === "emerald"
+          ? ["#10b981", "#14b8a6", "#34d399", "#ffffff", "#ccfbf1"]
+          : ["#f59e0b", "#f97316", "#fbbf24", "#ffffff", "#fef3c7"];
 
     confetti({
       particleCount: 100,
@@ -111,13 +112,13 @@ export default function ProposalCard({ config }: ProposalCardProps) {
       }
 
       const particleCount = 45 * (timeLeft / duration);
-      const colors = config.themeColor === "rose" 
+      const colors = config.themeColor === "rose"
         ? ["#f43f5e", "#ec4899", "#fda4af", "#ff007f", "#ffffff"]
         : config.themeColor === "lavender"
-        ? ["#a855f7", "#8b5cf6", "#c084fc", "#ffffff", "#e9d5ff"]
-        : config.themeColor === "emerald"
-        ? ["#10b981", "#14b8a6", "#34d399", "#ffffff", "#ccfbf1"]
-        : ["#f59e0b", "#f97316", "#fbbf24", "#ffffff", "#fef3c7"];
+          ? ["#a855f7", "#8b5cf6", "#c084fc", "#ffffff", "#e9d5ff"]
+          : config.themeColor === "emerald"
+            ? ["#10b981", "#14b8a6", "#34d399", "#ffffff", "#ccfbf1"]
+            : ["#f59e0b", "#f97316", "#fbbf24", "#ffffff", "#fef3c7"];
 
       // Side showers
       confetti({
@@ -195,12 +196,12 @@ export default function ProposalCard({ config }: ProposalCardProps) {
           initial={{ opacity: 0, scale: 0.9 }}
           animate={{ opacity: 1, scale: 1 }}
           exit={{ opacity: 0 }}
-          className="text-center py-6 flex flex-col items-center gap-5"
+          className="text-center py-4 flex flex-col items-center gap-4 w-full"
         >
           <InteractiveCuteCharacter mood="success" />
-          
+
           <div className="flex flex-col gap-2">
-            <motion.h1 
+            <motion.h1
               initial={{ scale: 0.8, y: 10 }}
               animate={{ scale: 1, y: 0 }}
               transition={{ delay: 0.2, type: "spring", stiffness: 120, damping: 10 }}
@@ -208,23 +209,26 @@ export default function ProposalCard({ config }: ProposalCardProps) {
             >
               I knew it! 😘💖
             </motion.h1>
-            <p className="text-base font-bold text-gray-800 tracking-wide px-4">
-              I love you too my baby doll 🌸👸💕
+            <p className="text-base sm:text-lg font-bold text-gray-800 tracking-wide px-4">
+              I love you Soooooo sooo Muccchhhhhh my Baby Doll / My mommy / Baby 🌸👸💕
             </p>
-            <p className="text-xs font-medium text-gray-500 italic max-w-sm px-4 mt-1 leading-relaxed">
+            <p className="text-xs font-medium text-gray-500 italic max-w-md px-4 leading-relaxed">
               Happiest moment ever. Let's make endless beautiful memories together! ✨
             </p>
           </div>
+
+          {/* Flirty & Intimate Custom Love Letter */}
+          <RomanticLoveLetter config={config} />
 
           <motion.button
             id="accepted-reset-btn"
             onClick={resetAll}
             initial={{ opacity: 0 }}
             animate={{ opacity: 1 }}
-            transition={{ delay: 1 }}
-            className={`mt-4 px-5 py-2 rounded-full text-xs font-semibold ${themeStyles.buttonNo} transition-all border`}
+            transition={{ delay: 0.8 }}
+            className={`mt-3 px-6 py-2.5 rounded-full text-xs font-bold ${themeStyles.buttonNo} hover:scale-105 active:scale-95 transition-all border cursor-pointer flex items-center gap-1.5`}
           >
-            Ask Again? 😉
+            <span>Ask Again? 😉</span>
           </motion.button>
         </motion.div>
       );
@@ -304,7 +308,7 @@ export default function ProposalCard({ config }: ProposalCardProps) {
     <div
       ref={containerRef}
       id="proposal-card-parent"
-      className={`relative w-full max-w-md ${themeStyles.glass} rounded-3xl p-6 sm:p-8 shadow-xl border overflow-hidden transition-all duration-500 z-10`}
+      className={`relative w-full ${isAccepted ? "max-w-2xl" : "max-w-md"} ${themeStyles.glass} rounded-3xl p-5 sm:p-8 shadow-xl border overflow-hidden transition-all duration-500 z-10`}
     >
       {/* Absolute floating decorations inside the card */}
       <div className="absolute top-0 right-0 w-16 h-16 bg-gradient-to-br from-rose-400/10 to-transparent rounded-full pointer-events-none" />
