@@ -75,16 +75,16 @@ export default function LockScreen({ onUnlock, partnerName = "Ridhima" }: LockSc
   };
 
   return (
-    <div className="fixed inset-0 z-50 flex items-center justify-center p-4 bg-gradient-to-br from-rose-950/80 via-purple-950/85 to-rose-900/90 backdrop-blur-2xl">
-      {/* Ambient background glow */}
-      <div className="absolute top-1/4 left-1/4 w-80 h-80 bg-rose-500/20 rounded-full blur-[100px] pointer-events-none" />
-      <div className="absolute bottom-1/4 right-1/4 w-80 h-80 bg-purple-500/20 rounded-full blur-[100px] pointer-events-none" />
+    <div className="fixed inset-0 z-50 flex items-center justify-center p-4 bg-gradient-to-br from-rose-950/90 via-purple-950/90 to-rose-900/95 backdrop-blur-lg">
+      {/* Ambient background glow (GPU accelerated) */}
+      <div className="absolute top-1/4 left-1/4 w-72 h-72 bg-rose-500/15 rounded-full blur-[50px] pointer-events-none gpu-accelerated" />
+      <div className="absolute bottom-1/4 right-1/4 w-72 h-72 bg-purple-500/15 rounded-full blur-[50px] pointer-events-none gpu-accelerated" />
 
       <motion.div
         initial={{ opacity: 0, scale: 0.9, y: 20 }}
         animate={shake ? { x: [-10, 10, -8, 8, -4, 4, 0] } : { opacity: 1, scale: 1, y: 0 }}
-        transition={{ duration: shake ? 0.4 : 0.6, ease: "easeOut" }}
-        className="relative w-full max-w-sm bg-white/10 backdrop-blur-2xl border border-white/30 rounded-3xl p-6 sm:p-8 text-center shadow-[0_25px_60px_rgba(0,0,0,0.35)] text-white"
+        transition={{ duration: shake ? 0.35 : 0.4, ease: "easeOut" }}
+        className="relative w-full max-w-sm bg-white/15 backdrop-blur-md border border-white/30 rounded-3xl p-6 sm:p-8 text-center shadow-[0_25px_60px_rgba(0,0,0,0.35)] text-white"
       >
         {/* Floating Lock Icon Header */}
         <div className="relative mx-auto w-16 h-16 mb-4 flex items-center justify-center">

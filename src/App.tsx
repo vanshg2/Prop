@@ -108,52 +108,11 @@ export default function App() {
 
   return (
     <div className={`relative w-full min-h-screen flex flex-col items-center p-4 bg-gradient-to-br ${themeGradients} transition-colors duration-500 overflow-x-hidden font-sans select-none pb-20`}>
-      {/* Dynamic Motion Hero Background Orbs (Glassmorphism ambient glow) */}
-      <div className="absolute inset-0 overflow-hidden pointer-events-none z-0">
-        {/* Orb A */}
-        <motion.div
-          className={`absolute -top-12 -left-12 w-[300px] h-[300px] sm:w-[500px] sm:h-[500px] rounded-full ${orbColors.one} blur-[80px] sm:blur-[120px]`}
-          animate={{
-            x: [0, 120, -60, 0],
-            y: [0, 80, 140, 0],
-            scale: [1, 1.25, 0.85, 1],
-            rotate: [0, 90, 180, 0],
-          }}
-          transition={{
-            duration: 20,
-            repeat: Infinity,
-            ease: "easeInOut",
-          }}
-        />
-        {/* Orb B */}
-        <motion.div
-          className={`absolute top-1/2 -right-16 w-[280px] h-[280px] sm:w-[450px] sm:h-[450px] rounded-full ${orbColors.two} blur-[80px] sm:blur-[120px]`}
-          animate={{
-            x: [0, -100, 80, 0],
-            y: [0, 120, -90, 0],
-            scale: [1, 0.8, 1.2, 1],
-            rotate: [0, -120, 120, 0],
-          }}
-          transition={{
-            duration: 24,
-            repeat: Infinity,
-            ease: "easeInOut",
-          }}
-        />
-        {/* Orb C */}
-        <motion.div
-          className={`absolute bottom-10 left-1/4 w-[250px] h-[250px] sm:w-[400px] sm:h-[400px] rounded-full ${orbColors.three} blur-[80px] sm:blur-[120px]`}
-          animate={{
-            x: [0, 80, -90, 0],
-            y: [0, -70, 100, 0],
-            scale: [1, 1.15, 0.9, 1],
-          }}
-          transition={{
-            duration: 18,
-            repeat: Infinity,
-            ease: "easeInOut",
-          }}
-        />
+      {/* High-performance Ambient Background Glow (Hardware-accelerated) */}
+      <div className="fixed inset-0 overflow-hidden pointer-events-none z-0">
+        <div className={`absolute -top-24 -left-24 w-[350px] h-[350px] sm:w-[600px] sm:h-[600px] rounded-full ${orbColors.one} blur-[50px] opacity-70 animate-float-slow gpu-accelerated`} />
+        <div className={`absolute top-1/3 -right-20 w-[300px] h-[300px] sm:w-[500px] sm:h-[500px] rounded-full ${orbColors.two} blur-[50px] opacity-60 gpu-accelerated`} />
+        <div className={`absolute -bottom-20 left-1/3 w-[300px] h-[300px] sm:w-[500px] sm:h-[500px] rounded-full ${orbColors.three} blur-[50px] opacity-50 gpu-accelerated`} />
       </div>
 
       {/* Interactive floating elements */}

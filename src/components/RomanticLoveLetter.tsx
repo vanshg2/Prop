@@ -233,7 +233,7 @@ export default function RomanticLoveLetter({ config }: RomanticLoveLetterProps) 
         <motion.div
           initial={{ opacity: 0, y: 20 }}
           animate={{ opacity: 1, y: 0 }}
-          className="w-full bg-gradient-to-br from-rose-50/90 via-pink-50/80 to-rose-100/90 backdrop-blur-2xl border-2 border-rose-300/80 rounded-3xl p-6 sm:p-10 shadow-[0_20px_50px_rgba(244,63,94,0.12)] text-center flex flex-col items-center relative overflow-hidden"
+          className="w-full bg-gradient-to-br from-rose-50/95 via-pink-50/90 to-rose-100/95 backdrop-blur-md border-2 border-rose-300/80 rounded-3xl p-6 sm:p-10 shadow-[0_15px_40px_rgba(244,63,94,0.12)] text-center flex flex-col items-center relative overflow-hidden"
         >
           {/* Decorative Air Mail border */}
           <div className="absolute top-0 left-0 right-0 h-2 bg-gradient-to-r from-rose-400 via-pink-300 to-rose-500 opacity-80" />

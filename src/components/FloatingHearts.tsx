@@ -1,5 +1,4 @@
-import { useState, useEffect } from "react";
-import { motion } from "motion/react";
+import { useMemo } from "react";
 
 interface FloatingItem {
   id: number;
@@ -10,59 +9,41 @@ interface FloatingItem {
   emoji: string;
 }
 
-const EMOJIS = ["❤️", "💖", "🌸", "✨", "💕", "💘", "🌸", "🌹"];
+const EMOJIS = ["❤️", "💖", "🌸", "✨", "💕", "💘", "🌹", "💌"];
+
+// Pre-computed static distribution to eliminate runtime re-renders and hydration mismatches
+const STATIC_ITEMS: FloatingItem[] = [
+  { id: 1, x: 8, size: 20, duration: 14, delay: -2, emoji: "💖" },
+  { id: 2, x: 22, size: 26, duration: 18, delay: -9, emoji: "🌸" },
+  { id: 3, x: 38, size: 16, duration: 12, delay: -4, emoji: "✨" },
+  { id: 4, x: 52, size: 24, duration: 16, delay: -11, emoji: "💕" },
+  { id: 5, x: 68, size: 18, duration: 13, delay: -6, emoji: "🌹" },
+  { id: 6, x: 82, size: 28, duration: 19, delay: -13, emoji: "💘" },
+  { id: 7, x: 94, size: 16, duration: 11, delay: -3, emoji: "🌸" },
+  { id: 8, x: 15, size: 22, duration: 15, delay: -7, emoji: "❤️" },
+  { id: 9, x: 45, size: 18, duration: 14, delay: -1, emoji: "💖" },
+  { id: 10, x: 75, size: 24, duration: 17, delay: -10, emoji: "✨" },
+];
 
 export default function FloatingHearts() {
-  const [items, setItems] = useState<FloatingItem[]>([]);
-
-  useEffect(() => {
-    // Generate static list of random floating elements to avoid server hydration issues or constant recreation
-    const initialItems = Array.from({ length: 24 }).map((_, i) => ({
-      id: i,
-      x: Math.random() * 100, // percentage across the screen
-      size: Math.random() * 24 + 12, // 12px to 36px
-      duration: Math.random() * 12 + 8, // 8s to 20s
-      delay: Math.random() * -15, // Negative delay to start immediately at staggered stages
-      emoji: EMOJIS[Math.floor(Math.random() * EMOJIS.length)],
-    }));
-    setItems(initialItems);
-  }, []);
+  const items = useMemo(() => STATIC_ITEMS, []);
 
   return (
-    <div className="absolute inset-0 overflow-hidden pointer-events-none select-none z-0">
+    <div className="fixed inset-0 overflow-hidden pointer-events-none select-none z-0">
       {items.map((item) => (
-        <motion.div
+        <span
           key={item.id}
-          className="absolute bottom-0 text-center flex items-center justify-center opacity-40 select-none pointer-events-none"
-          initial={{ 
-            x: `${item.x}vw`, 
-            y: "110vh", 
-            scale: 0.5, 
-            rotate: 0 
-          }}
-          animate={{
-            y: "-10vh",
-            rotate: [0, 15, -15, 30, -30, 0],
-            scale: [0.5, 1.2, 1, 1.2, 0.5],
-            x: [
-              `${item.x}vw`, 
-              `${item.x + (Math.random() * 10 - 5)}vw`, 
-              `${item.x + (Math.random() * 20 - 10)}vw`, 
-              `${item.x}vw`
-            ],
-          }}
-          transition={{
-            duration: item.duration,
-            repeat: Infinity,
-            delay: item.delay,
-            ease: "easeInOut",
-          }}
+          className="css-heart-particle"
           style={{
+            left: `${item.x}vw`,
             fontSize: `${item.size}px`,
+            animationDuration: `${item.duration}s`,
+            animationDelay: `${item.delay}s`,
           }}
+          aria-hidden="true"
         >
           {item.emoji}
-        </motion.div>
+        </span>
       ))}
     </div>
   );

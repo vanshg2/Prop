@@ -87,39 +87,39 @@ export default function LoveWidgets({ config }: WidgetProps) {
     }
   };
 
-  // Theme-specific styles
+  // Theme-specific styles (Optimized for 60/120fps smooth scrolling)
   const themeStyles = {
     rose: {
       accent: "text-rose-500",
-      accentBg: "bg-white/35",
-      accentBorder: "border-white/40",
-      pill: "bg-rose-500/80 text-white backdrop-blur-sm",
+      accentBg: "bg-white/50",
+      accentBorder: "border-white/60",
+      pill: "bg-rose-500 text-white",
       progress: "bg-rose-500",
-      glass: "bg-white/20 border border-white/40 shadow-[0_20px_50px_rgba(244,63,94,0.06)] backdrop-blur-2xl",
+      glass: "bg-white/75 border border-white/60 shadow-[0_15px_40px_rgba(244,63,94,0.08)] backdrop-blur-md",
     },
     lavender: {
       accent: "text-purple-500",
-      accentBg: "bg-white/35",
-      accentBorder: "border-white/40",
-      pill: "bg-purple-500/80 text-white backdrop-blur-sm",
+      accentBg: "bg-white/50",
+      accentBorder: "border-white/60",
+      pill: "bg-purple-500 text-white",
       progress: "bg-purple-500",
-      glass: "bg-white/20 border border-white/40 shadow-[0_20px_50px_rgba(139,92,246,0.06)] backdrop-blur-2xl",
+      glass: "bg-white/75 border border-white/60 shadow-[0_15px_40px_rgba(139,92,246,0.08)] backdrop-blur-md",
     },
     emerald: {
       accent: "text-emerald-500",
-      accentBg: "bg-white/35",
-      accentBorder: "border-white/40",
-      pill: "bg-emerald-500/80 text-white backdrop-blur-sm",
+      accentBg: "bg-white/50",
+      accentBorder: "border-white/60",
+      pill: "bg-emerald-500 text-white",
       progress: "bg-emerald-500",
-      glass: "bg-white/20 border border-white/40 shadow-[0_20px_50px_rgba(16,185,129,0.06)] backdrop-blur-2xl",
+      glass: "bg-white/75 border border-white/60 shadow-[0_15px_40px_rgba(16,185,129,0.08)] backdrop-blur-md",
     },
     amber: {
       accent: "text-amber-500",
-      accentBg: "bg-white/35",
-      accentBorder: "border-white/40",
-      pill: "bg-amber-500/80 text-white backdrop-blur-sm",
+      accentBg: "bg-white/50",
+      accentBorder: "border-white/60",
+      pill: "bg-amber-500 text-white",
       progress: "bg-amber-500",
-      glass: "bg-white/20 border border-white/40 shadow-[0_20px_50px_rgba(245,158,11,0.06)] backdrop-blur-2xl",
+      glass: "bg-white/75 border border-white/60 shadow-[0_15px_40px_rgba(245,158,11,0.08)] backdrop-blur-md",
     },
   }[config.themeColor || "rose"];
 
