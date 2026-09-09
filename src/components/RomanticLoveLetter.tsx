@@ -1,8 +1,9 @@
-import { useState } from "react";
+import { useState, useRef } from "react";
 import { motion, AnimatePresence } from "motion/react";
-import { Heart, Sparkles, Flame, Eye, Lock, Feather, Stars, Music, Quote, ChevronRight, ChevronLeft, RefreshCw } from "lucide-react";
+import { Heart, Sparkles, Flame, Eye, Lock, Feather, Stars, Music, Quote, ChevronRight, ChevronLeft, RefreshCw, Download, Check, Copy, Printer, Loader2 } from "lucide-react";
 import { ProposalConfig } from "../types";
 import { romanticAudio } from "../utils/audio";
+import html2canvas from "html2canvas";
 
 interface RomanticLoveLetterProps {
   config: ProposalConfig;
@@ -68,6 +69,10 @@ export default function RomanticLoveLetter({ config }: RomanticLoveLetterProps) 
   const [isPerfumed, setIsPerfumed] = useState(false);
   const [fontSizeMultiplier, setFontSizeMultiplier] = useState<"normal" | "large">("normal");
   const [quoteIndex, setQuoteIndex] = useState(0);
+  const [isDownloading, setIsDownloading] = useState(false);
+  const [copied, setCopied] = useState(false);
+
+  const letterRef = useRef<HTMLDivElement>(null);
 
   // Spritz perfume / send kisses effect
   const handleSpritz = () => {
@@ -98,6 +103,64 @@ export default function RomanticLoveLetter({ config }: RomanticLoveLetterProps) 
   const prevQuote = () => {
     romanticAudio.playChime(523.25);
     setQuoteIndex((prev) => (prev - 1 + ROMANTIC_QUOTES.length) % ROMANTIC_QUOTES.length);
+  };
+
+  // Download High-Resolution Keepsake PNG
+  const handleDownload = async () => {
+    if (!letterRef.current || isDownloading) return;
+    try {
+      setIsDownloading(true);
+      romanticAudio.playChime(659.25);
+
+      const canvas = await html2canvas(letterRef.current, {
+        scale: 2,
+        useCORS: true,
+        backgroundColor: "#fffefb",
+        logging: false,
+      });
+
+      const image = canvas.toDataURL("image/png");
+      const link = document.createElement("a");
+      link.href = image;
+      link.download = `Love_Letter_For_${config.partnerName || "Ridhima"}.png`;
+      document.body.appendChild(link);
+      link.click();
+      document.body.removeChild(link);
+
+      romanticAudio.playCelebration();
+    } catch (err) {
+      console.error("Failed to download letter", err);
+    } finally {
+      setIsDownloading(false);
+    }
+  };
+
+  // Copy Full Letter Text
+  const handleCopyText = () => {
+    const fullText = `Dearest ${config.partnerName || "Ridhima"},\n\n` +
+      `Hey baby doll 🌹💗\n\n` +
+      `I hope aapne last night ke baad achhi si sleep li hogi 🤭🤭. Aaj mann kiya ki main aapko properly describe karu—exactly the way I see you, the way I feel about you… so here it goes 🫣🌺\n\n` +
+      `Sabse pehle, I love you sooo much, my baby 🥺💗🌹. Thank you so much meri life mein hone ke liye, meri hone ke liye, meri everything banne ke liye 🧿🌺. Honestly, words khatam ho jayenge but aapko describe karna kabhi khatam nahi hoga 🫣💘.\n\n` +
+      `1. Your Nature: Bachaa, you are genuinely such a pure soul naa, main explain bhi nahi kar sakta 🥺. You are one of the most kind-hearted, caring and loving people I know, especially with me 💗. The way you care for me, the way you listen to me, meri stupid se stupid baatein bhi patiently sunti ho, everything about you feels exceptional 🫶🥹. Theek hai bachaa? Never change this beautiful heart of yours. I love you sooo much 💖💗🌹.\n\n` +
+      `2. Your Personality: Second, your personality 🤭🤭. I know the way you sometimes give me control is just… heart-melting 😭🤭💗. But apart from that, your whole personality is so welcoming, energetic, cute and most importantly, beautiful. Aapke around rehna hi achha lagta hai 🥹. And always remember, I'm here for you. I'm here to make you happy, support you and stand beside you whenever you need me. Okay bachaa? I love you sooo much 🌺🧿🌹💗.\n\n` +
+      `3. Your Body: Third, I want to talk about your body. For me, you are already perfect exactly the way you are 🧿💗. Aap jaisi ho, mujhe bilkul vaisi hi pasand ho. I'm never here to judge you or make you feel like you need to change anything. Agar kabhi *aapko khud* lage ki you want to improve something for yourself, then I'll be right there helping and supporting you 🌺. But please never think ki main aapko judge karta hu or I don't like something about you. Aap meri ho, aap jaisi ho meri favourite ho 😌💗. I'm here to support you at every point.\n\n` +
+      `4. Head to Toe: And fourth… ab thoda deeply describe karte hain 🤭🤭🫣. Head to toe 😏🌹.\n` +
+      `- Face: Let's start with your face. I swear, I just can't get over it 🥺. Aisa mann karta hai ki poore time bas aapko dekhta rahu 😭💗. Your eyes are sooo beautiful 🫣, and your lips… don't even get me started 🤭. They look so damn kissable, mann karta hai bas pakad ke kiss karta rahu 😭🤭💋. And your cheeks are sooo soft and cute, I literally want to eat them 😭🫣—samajh rahi ho naa what I mean 🤭🤭.\n` +
+      `- Neck: Then your neck… 😏🫣. Mujhe toh seriously lagta hai woh bani hi meri kisses aur little love bites ke liye hai 🤭💗.\n` +
+      `- Curves: And then thoda aur neeche… 🫣🫣 you know what's there naa 🤭. Your boobs 😮💨🤭. I haven't properly seen them yet, but still I already know they'll be beautiful because they're yours 🧿. Mann karta hai unhe hold karu, squeeze karu, kiss karu, give them all my love and leave cute little love bites and hickeys 🤭🫣😮💨. They'd look sooo pretty 😏💗.\n` +
+      `- Waist: Then your belly and waist 🥹. Iska toh kya hi bolu… whenever I'm standing beside you, mann karta hai bas waist hold karke rakhu 😭💗. It genuinely feels sooo good, so comforting, like you're exactly where you're supposed to be 🥹. I feel so secure holding you like that, and I really hope you feel that same comfort and safety with me too 🥺🧿.\n` +
+      `- Intimacy: Then thoda aur neeche… 🤭🫣 you know again 😏. Your pussy hehe 🤭. I haven't seen it either, but obviously mere liye toh woh bhi beautiful hi hogi 🧿💗. I want to make you feel amazing, give you pleasure, make you feel comfortable and safe with me, and when we're both ready and want it, I definitely want to be that close to you 🫣💗. Not just because of attraction, but because it's *you*. I only want you, because when I look at you, I don't just think about today… I genuinely imagine a future with you 😌🧿🌺.\n` +
+      `- Thighs & Hair: Then your thighs and legs 🤭🤭. And you already know naa—I love thick thighs 😏😭, and you literally have everything I like 🤭💗. And waittt, how could I forget your hair 😭😂. You have such beautiful hair bachaa 😌🥹💗. I love everything about it, and honestly everything about you.\n\n` +
+      `5. Sacred Promise: So yaa… abb almost sab kuch explain kar diya 🤭🤭. From your hair, your face, your eyes, your lips, your body, all the way down to your legs… every little part of you 💗🌺. And especially the parts of yourself that you sometimes feel insecure about—I want to kiss those parts a little more 🥹💗. I want you to slowly see yourself the way I see you. Beautiful, attractive, lovable and completely worthy of being loved 🧿🥺. I want you to feel like the most secure girl whenever you're with me. Never sit alone and overthink about yourself, okay bachaa? 🥺🥹 Because I'm here for you. Always. 🌺🧿💗\n\n` +
+      `Abb insecure nahi hona 😌😌 because your boy is here for you, always and forever 🧿🌺💗.\n` +
+      `I love you sooo sooo much, my baby doll, my bachaa, my everything, my queen, my princess, my world, my better half, my favourite person and the best part of my life 🧿🌺💗🌹🌹🌹🌹🌹🌹🌹🌹\n` +
+      `I love youuuuu sooo muchhhh meri jaan 🥺💗🧿🌺🌹\n\n` +
+      `Forever yours,\nVansh 🖋️💖`;
+
+    navigator.clipboard.writeText(fullText);
+    setCopied(true);
+    romanticAudio.playChime(659.25);
+    setTimeout(() => setCopied(false), 2500);
   };
 
   const currentQuote = ROMANTIC_QUOTES[quoteIndex];
@@ -145,7 +208,32 @@ export default function RomanticLoveLetter({ config }: RomanticLoveLetterProps) 
             </div>
           </div>
 
-          <div className="flex items-center gap-1.5">
+          <div className="flex items-center gap-1.5 flex-wrap">
+            {/* Download Letter Button */}
+            <button
+              onClick={handleDownload}
+              disabled={isDownloading}
+              className="px-3 py-1 bg-gradient-to-r from-rose-500 to-pink-500 hover:from-rose-600 hover:to-pink-600 text-white rounded-full text-[11px] font-bold flex items-center gap-1.5 shadow-xs hover:scale-105 active:scale-95 transition-all cursor-pointer font-sans disabled:opacity-60"
+              title="Steal and save high-resolution keepsake letter image"
+            >
+              {isDownloading ? (
+                <Loader2 className="w-3 h-3 animate-spin" />
+              ) : (
+                <Download className="w-3 h-3" />
+              )}
+              <span>{isDownloading ? "Sealing with kisses... 💋" : "Steal My Heart 💌💋"}</span>
+            </button>
+
+            {/* Copy Text Button */}
+            <button
+              onClick={handleCopyText}
+              className="px-2.5 py-1 bg-white/80 hover:bg-white text-gray-700 rounded-full text-[11px] font-bold border border-rose-200 flex items-center gap-1 shadow-2xs hover:scale-105 active:scale-95 transition-all cursor-pointer font-sans"
+              title="Copy entire letter text"
+            >
+              {copied ? <Check className="w-3 h-3 text-emerald-500" /> : <Copy className="w-3 h-3 text-rose-500" />}
+              <span>{copied ? "Copied! 💕" : "Copy"}</span>
+            </button>
+
             {/* Spritz Perfume Button */}
             <button
               onClick={handleSpritz}
@@ -153,21 +241,24 @@ export default function RomanticLoveLetter({ config }: RomanticLoveLetterProps) 
               title="Spray sweet floral perfume & send kisses"
             >
               <Sparkles className="w-3 h-3 text-amber-500" />
-              <span>Spritz Perfume 🌸💋</span>
+              <span>Spritz 🌸💋</span>
             </button>
 
             {/* Font Size Toggle */}
             <button
               onClick={() => setFontSizeMultiplier(fontSizeMultiplier === "normal" ? "large" : "normal")}
-              className="px-2.5 py-1 bg-white/60 hover:bg-white/80 text-gray-600 rounded-full text-[10px] font-bold border border-rose-200 transition-colors cursor-pointer font-sans"
+              className="px-2 py-1 bg-white/60 hover:bg-white/80 text-gray-600 rounded-full text-[10px] font-bold border border-rose-200 transition-colors cursor-pointer font-sans"
             >
               {fontSizeMultiplier === "normal" ? "A+" : "A-"}
             </button>
           </div>
         </div>
 
-        {/* 2. THE HANDWRITTEN PARCHMENT PAPER */}
-        <div className="relative w-full bg-[#fffefb] rounded-2xl shadow-[0_15px_45px_rgba(136,19,55,0.12),0_2px_8px_rgba(0,0,0,0.06)] border border-[#f3e5d8] overflow-hidden p-6 sm:p-9">
+        {/* 2. THE HANDWRITTEN PARCHMENT PAPER (Captured by html2canvas) */}
+        <div
+          ref={letterRef}
+          className="relative w-full bg-[#fffefb] rounded-2xl shadow-[0_15px_45px_rgba(136,19,55,0.12),0_2px_8px_rgba(0,0,0,0.06)] border border-[#f3e5d8] overflow-hidden p-6 sm:p-9"
+        >
           
           {/* Subtle Pink Notebook Margin Line on Left */}
           <div className="absolute top-0 bottom-0 left-8 sm:left-12 w-[1.5px] bg-rose-300/35 pointer-events-none z-10" />
@@ -474,8 +565,45 @@ export default function RomanticLoveLetter({ config }: RomanticLoveLetterProps) 
           </div>
         </motion.div>
 
+        {/* 4. Bottom Grand Download & Action Card */}
+        <motion.div
+          initial={{ opacity: 0, y: 15 }}
+          animate={{ opacity: 1, y: 0 }}
+          transition={{ delay: 0.5 }}
+          className="mt-4 p-4 sm:p-5 bg-white/60 backdrop-blur-xl rounded-2xl border border-pink-200/80 shadow-xs flex flex-col sm:flex-row items-center justify-between gap-3 text-center sm:text-left"
+        >
+          <div className="flex items-center gap-3">
+            <div className="w-10 h-10 rounded-full bg-rose-100 flex items-center justify-center text-rose-600 shrink-0 shadow-2xs">
+              <span className="text-xl">💌</span>
+            </div>
+            <div>
+              <h4 className="text-xs font-bold text-gray-800 uppercase tracking-wider">
+                Steal Your Boy's Love Letter Forever 🤫💖
+              </h4>
+              <p className="text-[11px] text-gray-500">
+                Lock this handwritten confession safely into your photo gallery forever
+              </p>
+            </div>
+          </div>
+
+          <div className="flex items-center gap-2">
+            <button
+              onClick={handleDownload}
+              disabled={isDownloading}
+              className="px-5 py-2.5 bg-gradient-to-r from-rose-500 via-pink-500 to-rose-600 hover:from-rose-600 hover:to-pink-600 text-white rounded-full text-xs font-bold shadow-md hover:scale-105 active:scale-95 transition-all flex items-center gap-2 cursor-pointer disabled:opacity-60"
+            >
+              {isDownloading ? (
+                <Loader2 className="w-4 h-4 animate-spin" />
+              ) : (
+                <Download className="w-4 h-4" />
+              )}
+              <span>{isDownloading ? "Sealing With Infinite Kisses... 🌸" : "Steal Letter & Keep Me Forever 📸💋"}</span>
+            </button>
+          </div>
+        </motion.div>
+
         {/* Bottom Interactive Touch */}
-        <div className="flex items-center justify-center gap-2 mt-3 text-xs text-rose-600 font-bold">
+        <div className="flex items-center justify-center gap-2 mt-4 text-xs text-rose-600 font-bold">
           <Heart className="w-3.5 h-3.5 fill-rose-500 text-rose-500 animate-pulse" />
           <span>Made with all my heart for Ridhima</span>
           <Heart className="w-3.5 h-3.5 fill-rose-500 text-rose-500 animate-pulse" />
