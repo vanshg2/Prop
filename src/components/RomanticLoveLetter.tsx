@@ -3,7 +3,7 @@ import { motion, AnimatePresence } from "motion/react";
 import { Heart, Sparkles, Flame, Eye, Lock, Feather, Stars, Music, Quote, ChevronRight, ChevronLeft, RefreshCw, Download, Check, Copy, Printer, Loader2 } from "lucide-react";
 import { ProposalConfig } from "../types";
 import { romanticAudio } from "../utils/audio";
-import html2canvas from "html2canvas";
+import { toPng } from "html-to-image";
 
 interface RomanticLoveLetterProps {
   config: ProposalConfig;
@@ -112,17 +112,33 @@ export default function RomanticLoveLetter({ config }: RomanticLoveLetterProps) 
       setIsDownloading(true);
       romanticAudio.playChime(659.25);
 
-      const canvas = await html2canvas(letterRef.current, {
-        scale: 2,
-        useCORS: true,
-        backgroundColor: "#fffefb",
-        logging: false,
-      });
+      if (document.fonts) {
+        await document.fonts.ready;
+      }
 
-      const image = canvas.toDataURL("image/png");
+      let dataUrl: string;
+      try {
+        dataUrl = await toPng(letterRef.current, {
+          quality: 1,
+          pixelRatio: 2,
+          backgroundColor: "#fffefb",
+          cacheBust: true,
+        });
+      } catch (fontErr) {
+        console.warn("Retrying toPng with skipFonts option...", fontErr);
+        dataUrl = await toPng(letterRef.current, {
+          quality: 1,
+          pixelRatio: 2,
+          backgroundColor: "#fffefb",
+          skipFonts: true,
+          cacheBust: true,
+        });
+      }
+
+      const cleanPartnerName = (config.partnerName || "Ridhima").trim().replace(/[^a-zA-Z0-9_-]/g, "_");
       const link = document.createElement("a");
-      link.href = image;
-      link.download = `Love_Letter_For_${config.partnerName || "Ridhima"}.png`;
+      link.download = `Love_Letter_For_${cleanPartnerName}.png`;
+      link.href = dataUrl;
       document.body.appendChild(link);
       link.click();
       document.body.removeChild(link);
