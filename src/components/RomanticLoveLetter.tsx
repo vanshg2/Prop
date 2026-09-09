@@ -1,6 +1,6 @@
 import { useState } from "react";
 import { motion, AnimatePresence } from "motion/react";
-import { Heart, Sparkles, Flame, Eye, Lock, Feather, Stars, Music } from "lucide-react";
+import { Heart, Sparkles, Flame, Eye, Lock, Feather, Stars, Music, Quote, ChevronRight, ChevronLeft, RefreshCw } from "lucide-react";
 import { ProposalConfig } from "../types";
 import { romanticAudio } from "../utils/audio";
 
@@ -17,11 +17,57 @@ interface FloatingPetal {
   scale: number;
 }
 
+// Deep, heartfelt quotes derived and crafted directly from the letter
+const ROMANTIC_QUOTES = [
+  {
+    id: 1,
+    quote: "You don't need to change a single thing for the world. To me, every little inch of you is already my favorite masterpiece.",
+    tag: "🧿 Already Perfect",
+    emoji: "💖",
+    hindi: "Aap jaisi ho, meri sabse favourite ho."
+  },
+  {
+    id: 2,
+    quote: "My favorite place in the universe is standing right beside you, holding your waist close and feeling completely at home.",
+    tag: "🥹 Safe In My Arms",
+    emoji: "🫂",
+    hindi: "Home isn't a place... it's right here with you."
+  },
+  {
+    id: 3,
+    quote: "I want to kiss every part of you that you've ever felt insecure about, until all you see is how breathtakingly loved you are.",
+    tag: "🥺 Sacred Promise",
+    emoji: "💋",
+    hindi: "Never overthink bachaa, your boy is here forever."
+  },
+  {
+    id: 4,
+    quote: "Your eyes are my stargazing sky, your lips are my sweetest obsession, and your smile makes my whole universe light up.",
+    tag: "😏 Head to Toe",
+    emoji: "🔥",
+    hindi: "Mann karta hai poore time bas aapko dekhta rahu."
+  },
+  {
+    id: 5,
+    quote: "I don't just look at you for today... when I look into your eyes, I genuinely see our entire beautiful future together.",
+    tag: "💍 Forever & Always",
+    emoji: "🌹",
+    hindi: "Building an endless lifetime of love with you."
+  },
+  {
+    id: 6,
+    quote: "Your pure heart and caring soul are the rarest treasures I have ever found. Never change that gorgeous heart of yours.",
+    tag: "✨ Pure Soul",
+    emoji: "👑",
+    hindi: "Bachaa, you are genuinely such a pure soul."
+  }
+];
+
 export default function RomanticLoveLetter({ config }: RomanticLoveLetterProps) {
-  const [isOpen, setIsOpen] = useState(true);
   const [petals, setPetals] = useState<FloatingPetal[]>([]);
   const [isPerfumed, setIsPerfumed] = useState(false);
   const [fontSizeMultiplier, setFontSizeMultiplier] = useState<"normal" | "large">("normal");
+  const [quoteIndex, setQuoteIndex] = useState(0);
 
   // Spritz perfume / send kisses effect
   const handleSpritz = () => {
@@ -44,8 +90,20 @@ export default function RomanticLoveLetter({ config }: RomanticLoveLetterProps) 
     }, 2800);
   };
 
+  const nextQuote = () => {
+    romanticAudio.playChime(587.33);
+    setQuoteIndex((prev) => (prev + 1) % ROMANTIC_QUOTES.length);
+  };
+
+  const prevQuote = () => {
+    romanticAudio.playChime(523.25);
+    setQuoteIndex((prev) => (prev - 1 + ROMANTIC_QUOTES.length) % ROMANTIC_QUOTES.length);
+  };
+
+  const currentQuote = ROMANTIC_QUOTES[quoteIndex];
+
   return (
-    <div className="w-full mt-5 flex flex-col items-center select-none sm:select-text">
+    <div className="w-full mt-5 flex flex-col items-center select-none sm:select-text space-y-5">
       
       {/* 1. Vintage Letter Container */}
       <motion.div
@@ -197,6 +255,12 @@ export default function RomanticLoveLetter({ config }: RomanticLoveLetterProps) 
               </p>
             </div>
 
+            {/* Quote Card 1: Pure Soul */}
+            <div className="p-3.5 bg-gradient-to-r from-rose-50/90 to-purple-50/90 rounded-2xl border border-rose-200/70 shadow-2xs my-3 text-rose-900 font-serif italic text-base sm:text-lg flex items-center gap-2.5">
+              <Quote className="w-5 h-5 text-rose-400 shrink-0" />
+              <span>“In a world full of noise, your gentle and pure heart is my sweetest sanctuary.” 🌸✨</span>
+            </div>
+
             {/* 2. Personality */}
             <div className="relative">
               <div className="inline-block font-cursive text-xl sm:text-2xl text-purple-600 font-bold mb-1 border-b border-purple-300/50 pb-0.5">
@@ -215,6 +279,12 @@ export default function RomanticLoveLetter({ config }: RomanticLoveLetterProps) 
               <p>
                 Third, I want to talk about your body. For me, you are already perfect exactly the way you are 🧿💗. Aap jaisi ho, mujhe bilkul vaisi hi pasand ho. I'm never here to judge you or make you feel like you need to change anything. Agar kabhi <span className="font-bold underline decoration-wavy decoration-rose-400 text-[#881337]">*aapko khud*</span> lage ki you want to improve something for yourself, then I'll be right there helping and supporting you 🌺. But please never think ki main aapko judge karta hu or I don't like something about you. Aap meri ho, aap jaisi ho meri favourite ho 😌💗. I'm here to support you at every point.
               </p>
+            </div>
+
+            {/* Quote Card 2: Perfect Body & Zero Judgement */}
+            <div className="p-3.5 bg-gradient-to-r from-pink-50/90 to-rose-50/90 rounded-2xl border border-pink-200/70 shadow-2xs my-3 text-rose-900 font-serif italic text-base sm:text-lg flex items-center gap-2.5">
+              <Quote className="w-5 h-5 text-pink-400 shrink-0" />
+              <span>“You don't have to change a single curve or breath. You are flawlessly, undeniably my favourite girl.” 🧿💗</span>
             </div>
 
             {/* Cute Tape Note in Margin */}
@@ -247,7 +317,7 @@ export default function RomanticLoveLetter({ config }: RomanticLoveLetterProps) 
               {/* Neck */}
               <div className="bg-pink-50/50 rounded-xl p-3 sm:p-4 border border-pink-200/60">
                 <p>
-                  Then your neck… 😏🫣. Mujhe toh seriously lagta hai woh bani hi meri kisses aur little love bites ke liye hai 🤭💗.
+                  Then your neck… 😏🫣. Mujhe toh seriously lagta woh bani hi meri kisses aur little love bites ke liye hai 🤭💗.
                 </p>
               </div>
 
@@ -283,6 +353,12 @@ export default function RomanticLoveLetter({ config }: RomanticLoveLetterProps) 
               </div>
             </div>
 
+            {/* Quote Card 3: Head to Toe & Passion */}
+            <div className="p-3.5 bg-gradient-to-r from-purple-50/90 via-rose-50/90 to-pink-50/90 rounded-2xl border border-rose-200/70 shadow-2xs my-3 text-rose-900 font-serif italic text-base sm:text-lg flex items-center gap-2.5">
+              <Quote className="w-5 h-5 text-rose-500 shrink-0" />
+              <span>“Your lips are my favourite weakness, your waist is my safe haven, and your heart is my forever destination.” 😏💋🔥</span>
+            </div>
+
             {/* Insecurities & Sacred Promise */}
             <div className="relative pt-2 space-y-3">
               <p>
@@ -297,6 +373,12 @@ export default function RomanticLoveLetter({ config }: RomanticLoveLetterProps) 
               <p className="text-gray-500 italic">
                 So there you are… properly described from head to toe 🤭🤭🤭.
               </p>
+            </div>
+
+            {/* Quote Card 4: Sacred Promise & Security */}
+            <div className="p-3.5 bg-gradient-to-r from-rose-50/90 to-amber-50/90 rounded-2xl border border-amber-200/70 shadow-2xs my-3 text-amber-950 font-serif italic text-base sm:text-lg flex items-center gap-2.5">
+              <Quote className="w-5 h-5 text-amber-500 shrink-0" />
+              <span>“As long as I am with you, you will never have to doubt if you are cherished, adored, and completely protected.” 🥺💍</span>
             </div>
 
             {/* Grand Finale Sign-off */}
@@ -328,6 +410,69 @@ export default function RomanticLoveLetter({ config }: RomanticLoveLetterProps) 
           </div>
 
         </div>
+
+        {/* 3. Interactive Romantic Whispers Card (Analyzed Quotes Carousel) */}
+        <motion.div
+          initial={{ opacity: 0, y: 15 }}
+          animate={{ opacity: 1, y: 0 }}
+          transition={{ delay: 0.4 }}
+          className="mt-4 bg-gradient-to-r from-rose-500/10 via-pink-500/15 to-purple-500/10 backdrop-blur-xl rounded-2xl p-4 sm:p-5 border border-rose-300/40 shadow-xs"
+        >
+          <div className="flex items-center justify-between mb-2.5">
+            <div className="flex items-center gap-1.5">
+              <span className="text-sm">💭</span>
+              <span className="text-xs font-black tracking-wider uppercase text-rose-700">
+                Love Whispers For {config.partnerName || "Ridhima"}
+              </span>
+            </div>
+            <span className="text-[10px] font-bold text-rose-500 bg-white/70 px-2 py-0.5 rounded-full border border-rose-200">
+              {quoteIndex + 1} / {ROMANTIC_QUOTES.length}
+            </span>
+          </div>
+
+          <AnimatePresence mode="wait">
+            <motion.div
+              key={currentQuote.id}
+              initial={{ opacity: 0, x: 10 }}
+              animate={{ opacity: 1, x: 0 }}
+              exit={{ opacity: 0, x: -10 }}
+              transition={{ duration: 0.25 }}
+              className="bg-white/70 backdrop-blur-md rounded-xl p-3.5 border border-rose-200/70"
+            >
+              <div className="flex items-center justify-between mb-1">
+                <span className="text-[11px] font-bold text-rose-600 flex items-center gap-1">
+                  <span>{currentQuote.emoji}</span>
+                  <span>{currentQuote.tag}</span>
+                </span>
+                <span className="text-[11px] italic font-medium text-gray-500">
+                  {currentQuote.hindi}
+                </span>
+              </div>
+              <p className="font-serif italic text-xs sm:text-sm text-gray-800 leading-relaxed mt-1">
+                “{currentQuote.quote}”
+              </p>
+            </motion.div>
+          </AnimatePresence>
+
+          {/* Carousel Controls */}
+          <div className="flex items-center justify-between mt-3 pt-2 border-t border-rose-200/40">
+            <button
+              onClick={prevQuote}
+              className="px-3 py-1 bg-white/60 hover:bg-white text-gray-700 rounded-full text-xs font-bold flex items-center gap-1 border border-rose-200 transition-all cursor-pointer shadow-2xs"
+            >
+              <ChevronLeft className="w-3.5 h-3.5" />
+              <span>Previous</span>
+            </button>
+
+            <button
+              onClick={nextQuote}
+              className="px-3 py-1 bg-rose-500 hover:bg-rose-600 text-white rounded-full text-xs font-bold flex items-center gap-1 shadow-xs transition-all cursor-pointer"
+            >
+              <span>Next Whisper</span>
+              <ChevronRight className="w-3.5 h-3.5" />
+            </button>
+          </div>
+        </motion.div>
 
         {/* Bottom Interactive Touch */}
         <div className="flex items-center justify-center gap-2 mt-3 text-xs text-rose-600 font-bold">
