@@ -3,8 +3,9 @@ import { ProposalConfig } from "./types";
 import FloatingHearts from "./components/FloatingHearts";
 import ProposalCard from "./components/ProposalCard";
 import LoveWidgets from "./components/LoveWidgets";
-import { Heart, Sparkles, Star } from "lucide-react";
+import { Heart, Sparkles, Star, Volume2, VolumeX } from "lucide-react";
 import { motion } from "motion/react";
+import { romanticAudio } from "./utils/audio";
 
 const DEFAULT_CONFIG: ProposalConfig = {
   proposerName: "Vansh",
@@ -17,6 +18,7 @@ const DEFAULT_CONFIG: ProposalConfig = {
 
 export default function App() {
   const [config, setConfig] = useState<ProposalConfig>(DEFAULT_CONFIG);
+  const [isMuted, setIsMuted] = useState(false);
 
   // Load custom configuration from URL parameters on start (makes it super easy to share personalized links!)
   useEffect(() => {
@@ -164,11 +166,30 @@ export default function App() {
             </span>
           </div>
 
-          <div className="flex items-center gap-1.5 bg-white/40 backdrop-blur-md px-3 py-1 rounded-full border border-white/50">
-            <Sparkles className="w-3.5 h-3.5 text-amber-500" />
-            <span className="text-[10px] sm:text-xs font-bold text-gray-700">
-              For: {config.partnerName || "Ridhima"} 🌸
-            </span>
+          <div className="flex items-center gap-2">
+            <button
+              onClick={() => {
+                const muted = romanticAudio.toggleMute();
+                setIsMuted(muted);
+                if (!muted) romanticAudio.playChime(659.25);
+              }}
+              className="flex items-center gap-1 bg-white/40 hover:bg-white/70 backdrop-blur-md px-2.5 py-1 rounded-full border border-white/50 text-gray-700 text-[11px] font-bold transition-all cursor-pointer shadow-2xs"
+              title={isMuted ? "Unmute romantic sounds" : "Mute sounds"}
+            >
+              {isMuted ? (
+                <VolumeX className="w-3.5 h-3.5 text-gray-400" />
+              ) : (
+                <Volume2 className="w-3.5 h-3.5 text-rose-500 animate-pulse" />
+              )}
+              <span className="hidden sm:inline text-[10px]">{isMuted ? "Muted" : "Music"}</span>
+            </button>
+
+            <div className="flex items-center gap-1.5 bg-white/50 backdrop-blur-md px-3 py-1 rounded-full border border-white/60 shadow-2xs">
+              <Sparkles className="w-3.5 h-3.5 text-amber-500" />
+              <span className="text-[10px] sm:text-xs font-bold text-gray-700">
+                For: {config.partnerName || "Ridhima"} 🌸
+              </span>
+            </div>
           </div>
         </div>
       </header>

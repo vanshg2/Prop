@@ -2,6 +2,7 @@ import { useState } from "react";
 import { motion, AnimatePresence } from "motion/react";
 import { Heart, Sparkles, Flame, Eye, Lock, Feather, Stars, Music } from "lucide-react";
 import { ProposalConfig } from "../types";
+import { romanticAudio } from "../utils/audio";
 
 interface RomanticLoveLetterProps {
   config: ProposalConfig;
@@ -25,8 +26,9 @@ export default function RomanticLoveLetter({ config }: RomanticLoveLetterProps) 
   // Spritz perfume / send kisses effect
   const handleSpritz = () => {
     setIsPerfumed(true);
+    romanticAudio.playKiss();
     const emojis = ["🌸", "🌹", "💋", "💖", "✨", "🦋", "💌"];
-    const newPetals: FloatingPetal[] = Array.from({ length: 14 }).map((_, i) => ({
+    const newPetals: FloatingPetal[] = Array.from({ length: 16 }).map((_, i) => ({
       id: Date.now() + i,
       x: Math.random() * 90 + 5,
       y: Math.random() * 80 + 10,
@@ -133,11 +135,15 @@ export default function RomanticLoveLetter({ config }: RomanticLoveLetterProps) 
           </div>
 
           {/* Realistic Lipstick Kiss Imprint on Bottom Left */}
-          <div className="absolute bottom-16 right-8 sm:bottom-20 sm:right-16 pointer-events-none opacity-85 rotate-12 z-10">
-            <span className="text-3xl sm:text-4xl filter drop-shadow-[0_2px_4px_rgba(244,63,94,0.3)]">
+          <button
+            onClick={handleSpritz}
+            className="absolute bottom-16 right-8 sm:bottom-20 sm:right-16 opacity-90 rotate-12 z-10 hover:scale-125 active:scale-95 transition-transform cursor-pointer group"
+            title="Click to receive my kiss 💋"
+          >
+            <span className="text-3xl sm:text-4xl filter drop-shadow-[0_2px_4px_rgba(244,63,94,0.3)] block group-hover:animate-pulse">
               💋
             </span>
-          </div>
+          </button>
 
           {/* Golden Wax Seal Decorative Stamp */}
           <div className="flex items-center gap-3 mb-6 pb-4 border-b border-rose-200/50 pl-4 sm:pl-8">

@@ -1,10 +1,11 @@
 import { useState, useRef } from "react";
 import { motion, AnimatePresence } from "motion/react";
-import { Heart, Sparkles, AlertCircle } from "lucide-react";
+import { Heart, Sparkles, AlertCircle, Stars } from "lucide-react";
 import confetti from "canvas-confetti";
 import { ProposalConfig, NoStep } from "../types";
 import InteractiveCuteCharacter from "./InteractiveCuteCharacter";
 import RomanticLoveLetter from "./RomanticLoveLetter";
+import { romanticAudio } from "../utils/audio";
 
 interface ProposalCardProps {
   config: ProposalConfig;
@@ -13,23 +14,23 @@ interface ProposalCardProps {
 const NO_STEPS: NoStep[] = [
   {
     id: 1,
-    emoji: "🙄",
-    heading: "Please think again! 🙄",
-    subheading: "Itni jaldi na matt bolo... 😥",
+    emoji: "🥺",
+    heading: "Please think again na meri doll! 🥺",
+    subheading: "Itni jaldi No matt bolo... dil toot jayega 💔🥺",
     gifType: "pout",
   },
   {
     id: 2,
     emoji: "😣",
-    heading: "Ek aur baar Soch lo! 😣",
-    subheading: "Kyu aisa kar rahi ho, Pls Maan jao na... 😣",
+    heading: "Ek aur baar soch lo meri jaan! 😣",
+    subheading: "Aise kyu sataa rahi ho baby... Pls maan jao na 🥺💕",
     gifType: "cry",
   },
   {
     id: 3,
     emoji: "😭",
-    heading: "Beautiful, pls Man jao na! 😭",
-    subheading: "Kitna code likh waogi... bhut glt baat hai yrr 😭",
+    heading: "Ridhima baby, pls maan jao na! 😭",
+    subheading: "Kitne nakhre dikhaogi meri princess... you know you're mine! 💍💖",
     gifType: "desperate",
   },
 ];
@@ -46,6 +47,7 @@ export default function ProposalCard({ config }: ProposalCardProps) {
   const yesButtonScale = 1 + currentStep * 0.4 + Math.min(teleportCount * 0.15, 1.5);
 
   const handleNoAction = () => {
+    romanticAudio.playEscape();
     if (currentStep < 3) {
       // Advance to next guilt-trip stage
       setCurrentStep((prev) => prev + 1);
@@ -56,6 +58,7 @@ export default function ProposalCard({ config }: ProposalCardProps) {
   };
 
   const teleportNoButton = () => {
+    romanticAudio.playEscape();
     if (containerRef.current) {
       const rect = containerRef.current.getBoundingClientRect();
       // Keep inside container boundaries with padding
@@ -78,6 +81,7 @@ export default function ProposalCard({ config }: ProposalCardProps) {
 
   const handleYes = () => {
     setIsAccepted(true);
+    romanticAudio.playCelebration();
 
     // Multi-burst premium themed confetti celebration for 5 seconds
     const duration = 5 * 1000;

@@ -3,6 +3,7 @@ import { motion, AnimatePresence } from "motion/react";
 import { Heart, Sparkles, RefreshCw, Trophy, Star } from "lucide-react";
 import confetti from "canvas-confetti";
 import { ProposalConfig } from "../types";
+import { romanticAudio } from "../utils/audio";
 
 interface WidgetProps {
   config: ProposalConfig;
@@ -10,24 +11,24 @@ interface WidgetProps {
 
 // Interactive Heart - "The Things I Love" Database
 const LOVE_ITEMS = [
-  { id: "coffee", label: "Late Night Coffee", icon: "☕", x: 28, y: 15, text: "Fueling late-night thoughts of you..." },
-  { id: "music", label: "Beautiful Melodies", icon: "🎵", x: 16, y: 24, text: "Every love song suddenly makes perfect sense." },
-  { id: "books", label: "Cozy Books", icon: "📚", x: 72, y: 15, text: "My favorite story is the one we write together." },
-  { id: "sunset", label: "Magical Sunsets", icon: "🌅", x: 84, y: 24, text: "Painting the sky in shades of my love for you." },
+  { id: "kisses", label: "Forehead Kisses", icon: "💋", x: 28, y: 15, text: "Soft, tender kisses that make the world stop spinning." },
+  { id: "music", label: "Your Voice Notes", icon: "🎵", x: 16, y: 24, text: "My favorite melody in the world is your sweet voice and giggles." },
+  { id: "hoodie", label: "Stealing My Hoodies", icon: "🧸", x: 72, y: 15, text: "They look a thousand times better on you anyway!" },
+  { id: "sunset", label: "Dreamy Sunsets", icon: "🌅", x: 84, y: 24, text: "Holding your hands while the sky turns pink and gold." },
 
-  { id: "cats", label: "Fluffy Kittens", icon: "🐱", x: 10, y: 39, text: "Soft, warm, and cute—just like your sweet hugs!" },
-  { id: "travel", label: "Endless Travel", icon: "✈️", x: 30, y: 39, text: "I'd travel across the universe just to see you." },
-  { id: "stars", label: "Stargazing", icon: "🌟", x: 70, y: 39, text: "Looking for the brightest star, but none shines like you." },
-  { id: "rain", label: "Rainy Days", icon: "🌧️", x: 90, y: 39, text: "The perfect excuse to hold you close and listen to the rain." },
+  { id: "cuddles", label: "Tight Cuddles", icon: "🫂", x: 10, y: 39, text: "Holding you so close that I can feel our heartbeats sync." },
+  { id: "travel", label: "Endless Adventures", icon: "✈️", x: 30, y: 39, text: "Anywhere with you feels like the most magical paradise." },
+  { id: "stars", label: "Stargazing Nights", icon: "🌟", x: 70, y: 39, text: "Looking for stars, but nothing outshines your gorgeous eyes." },
+  { id: "rain", label: "Cozy Rainy Days", icon: "🌧️", x: 90, y: 39, text: "Warm blankets, hot tea, and you wrapped in my arms." },
 
-  { id: "flowers", label: "Fresh Flowers", icon: "🌸", x: 16, y: 58, text: "Blooming with endless joy whenever you smile." },
+  { id: "flowers", label: "Fresh Peonies & Roses", icon: "🌸", x: 16, y: 58, text: "Blooming just like the smile you put on my face every day." },
   { id: "you", label: "YOU (Ridhima)", icon: "💖", x: 50, y: 48, text: "The center of my universe. The one I love more than everything else combined! 🌸✨", isMain: true },
-  { id: "chocolate", label: "Chocolates", icon: "🍫", x: 84, y: 58, text: "Sweet, but not even half as sweet as you are!" },
+  { id: "chocolate", label: "Midnight Ice Cream", icon: "🍦", x: 84, y: 58, text: "Sweet treats, but none half as sweet as you!" },
 
-  { id: "pizza", label: "Pizza Nights", icon: "🍕", x: 32, y: 74, text: "A warm slice of happiness, but you are the whole pie!" },
-  { id: "gaming", label: "Co-op Gaming", icon: "🎮", x: 68, y: 74, text: "Player 1 ❤️ Player 2. You're my favorite teammate forever." },
+  { id: "dates", label: "Candlelight Dates", icon: "🕯️", x: 32, y: 74, text: "Just you and me talking about everything and nothing." },
+  { id: "gaming", label: "Playful Teasing", icon: "😏", x: 68, y: 74, text: "Making you blush is genuinely my favorite hobby forever." },
 
-  { id: "home", label: "Warm Home", icon: "🏡", x: 50, y: 88, text: "Home isn't a place, it's a feeling... and my home is with you." }
+  { id: "home", label: "Safe In My Arms", icon: "🏡", x: 50, y: 88, text: "Home isn't a place... my home is right wherever you are." }
 ];
 
 export default function LoveWidgets({ config }: WidgetProps) {
@@ -62,6 +63,7 @@ export default function LoveWidgets({ config }: WidgetProps) {
   // Click handler for a heart item
   const handleItemClick = (item: typeof LOVE_ITEMS[0]) => {
     setSelectedItem(item);
+    romanticAudio.playChime(item.isMain ? 659.25 : 523.25);
     if (!clickedList.includes(item.id)) {
       const newList = [...clickedList, item.id];
       setClickedList(newList);
@@ -69,6 +71,7 @@ export default function LoveWidgets({ config }: WidgetProps) {
       // Check if unlocked all
       if (newList.length === LOVE_ITEMS.length) {
         setHasUnlockedAll(true);
+        romanticAudio.playCelebration();
         // Beautiful extra multi-burst of heart confetti
         confetti({
           particleCount: 150,
