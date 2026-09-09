@@ -264,21 +264,16 @@ export default function App() {
               <ProposalCard config={config} onAcceptedChange={setIsAccepted} />
             </div>
 
-            {/* Widgets Section seamlessly presented beneath the love letter */}
+            {/* Coupons, Secret Letters & Widgets Section revealed ONLY after accepting the proposal */}
             <div className="w-full max-w-5xl">
               <LoveWidgets config={config} />
             </div>
           </div>
         ) : (
-          <div className="w-full grid grid-cols-1 lg:grid-cols-12 gap-8 items-start px-4">
-            {/* Column A (Proposal Interactive Card) */}
-            <div className="lg:col-span-7 flex justify-center w-full">
+          <div className="w-full flex justify-center items-center px-4 my-auto">
+            {/* Pure focus on the Proposal Question */}
+            <div className="flex justify-center w-full max-w-md">
               <ProposalCard config={config} onAcceptedChange={setIsAccepted} />
-            </div>
-
-            {/* Column B (Secondary Love Interactive Widgets) */}
-            <div className="lg:col-span-5 w-full">
-              <LoveWidgets config={config} />
             </div>
           </div>
         )}
