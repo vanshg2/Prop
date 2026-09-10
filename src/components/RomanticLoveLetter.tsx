@@ -190,9 +190,7 @@ export default function RomanticLoveLetter({ config }: RomanticLoveLetterProps) 
       `4. Head to Toe: And fourth… ab thoda deeply describe karte hain 🤭🤭🫣. Head to toe 😏🌹.\n` +
       `- Face: Let's start with your face. I swear, I just can't get over it 🥺. Aisa mann karta hai ki poore time bas aapko dekhta rahu 😭💗. Your eyes are sooo beautiful 🫣, and your lips… don't even get me started 🤭. They look so damn kissable, mann karta hai bas pakad ke kiss karta rahu 😭🤭💋. And your cheeks are sooo soft and cute, I literally want to eat them 😭🫣—samajh rahi ho naa what I mean 🤭🤭.\n` +
       `- Neck: Then your neck… 😏🫣. Mujhe toh seriously lagta hai woh bani hi meri kisses aur little love bites ke liye hai 🤭💗.\n` +
-      `- Curves: And then thoda aur neeche… 🫣🫣 you know what's there naa 🤭. Your boobs 😮💨🤭. I haven't properly seen them yet, but still I already know they'll be beautiful because they're yours 🧿. Mann karta hai unhe hold karu, squeeze karu, kiss karu, give them all my love and leave cute little love bites and hickeys 🤭🫣😮💨. They'd look sooo pretty 😏💗.\n` +
       `- Waist: Then your belly and waist 🥹. Iska toh kya hi bolu… whenever I'm standing beside you, mann karta hai bas waist hold karke rakhu 😭💗. It genuinely feels sooo good, so comforting, like you're exactly where you're supposed to be 🥹. I feel so secure holding you like that, and I really hope you feel that same comfort and safety with me too 🥺🧿.\n` +
-      `- Intimacy: Then thoda aur neeche… 🤭🫣 you know again 😏. Your pussy hehe 🤭. I haven't seen it either, but obviously mere liye toh woh bhi beautiful hi hogi 🧿💗. I want to make you feel amazing, give you pleasure, make you feel comfortable and safe with me, and when we're both ready and want it, I definitely want to be that close to you 🫣💗. Not just because of attraction, but because it's *you*. I only want you, because when I look at you, I don't just think about today… I genuinely imagine a future with you 😌🧿🌺.\n` +
       `- Thighs & Hair: Then your thighs and legs 🤭🤭. And you already know naa—I love thick thighs 😏😭, and you literally have everything I like 🤭💗. And waittt, how could I forget your hair 😭😂. You have such beautiful hair bachaa 😌🥹💗. I love everything about it, and honestly everything about you.\n\n` +
       `5. Sacred Promise: So yaa… abb almost sab kuch explain kar diya 🤭🤭. From your hair, your face, your eyes, your lips, your body, all the way down to your legs… every little part of you 💗🌺. And especially the parts of yourself that you sometimes feel insecure about—I want to kiss those parts a little more 🥹💗. I want you to slowly see yourself the way I see you. Beautiful, attractive, lovable and completely worthy of being loved 🧿🥺. I want you to feel like the most secure girl whenever you're with me. Never sit alone and overthink about yourself, okay bachaa? 🥺🥹 Because I'm here for you. Always. 🌺🧿💗\n\n` +
       `Abb insecure nahi hona 😌😌 because your boy is here for you, always and forever 🧿🌺💗.\n` +
@@ -509,24 +507,10 @@ export default function RomanticLoveLetter({ config }: RomanticLoveLetterProps) 
                   </p>
                 </div>
 
-                {/* Chest / Curves */}
-                <div className="bg-rose-50/50 rounded-xl p-3 sm:p-4 border border-rose-200/60">
-                  <p>
-                    And then thoda aur neeche… 🫣🫣 you know what's there naa 🤭. Your boobs 😮💨🤭. I haven't properly seen them yet, but still I already know they'll be beautiful because they're yours 🧿. Mann karta hai unhe hold karu, squeeze karu, kiss karu, give them all my love and leave cute little love bites and hickeys 🤭🫣😮💨. They'd look sooo pretty 😏💗.
-                  </p>
-                </div>
-
                 {/* Waist & Belly */}
                 <div className="bg-pink-50/50 rounded-xl p-3 sm:p-4 border border-pink-200/60">
                   <p>
                     Then your belly and waist 🥹. Iska toh kya hi bolu… whenever I'm standing beside you, mann karta hai bas waist hold karke rakhu 😭💗. It genuinely feels sooo good, so comforting, like you're exactly where you're supposed to be 🥹. I feel so secure holding you like that, and I really hope you feel that same comfort and safety with me too 🥺🧿.
-                  </p>
-                </div>
-
-                {/* Deep Intimacy */}
-                <div className="bg-purple-50/50 rounded-xl p-3 sm:p-4 border border-purple-200/60">
-                  <p>
-                    Then thoda aur neeche… 🤭🫣 you know again 😏. Your pussy hehe 🤭. I haven't seen it either, but obviously mere liye toh woh bhi beautiful hi hogi 🧿💗. I want to make you feel amazing, give you pleasure, make you feel comfortable and safe with me, and when we're both ready and want it, I definitely want to be that close to you 🫣💗. Not just because of attraction, but because it's <span className="font-bold text-purple-700 underline decoration-wavy decoration-purple-400">*you*</span>. I only want you, because when I look at you, I don't just think about today… I genuinely imagine a future with you 😌🧿🌺.
                   </p>
                 </div>
 
